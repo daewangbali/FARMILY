@@ -39,7 +39,7 @@ create table farmily_reservation(
 	month varchar2(50) not null,
 	day varchar2(50) not null,
 	board_no number not null,
-	id varchar2(100) not null,
+	id varchar2(100),
 	CONSTRAINT fk_farmily_reservation_board_no foreign key(board_no) references farmily_board(board_no)  --외래키 지정문
 	CONSTRAINT fk_farmily_reservation_id foreign key(id) references farmily_member (id)  --외래키 지정문
 )
