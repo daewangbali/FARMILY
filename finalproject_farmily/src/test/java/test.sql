@@ -18,7 +18,6 @@ create table farmily_board(
 	board_no number primary key,
 	title varchar2(100) not null,
 	content clob not null,
-	bdatearray 
 	select_categori varchar2(100) not null,
 	board_categori varchar2(100) not null,
 	region varchar2(100) not null,
@@ -37,7 +36,8 @@ create table farmily_file(
 
 create table farmily_reservation(
 	reservation_no number primary key,
-	rdatearray 
+	month varchar2(50) not null,
+	day varchar2(50) not null,
 	board_no number not null,
 	id varchar2(100) not null,
 	CONSTRAINT fk_farmily_reservation_board_no foreign key(board_no) references farmily_board(board_no)  --외래키 지정문

@@ -11,7 +11,6 @@ public class BoardVO {
 	private int boardNo;
 	private String title;
 	private String content;
-	//private bdatearray
 	private String selectCategori;
 	private String boardCategori;
 	private String region;
