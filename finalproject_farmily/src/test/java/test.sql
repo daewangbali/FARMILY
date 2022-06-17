@@ -64,6 +64,8 @@ create table farmily_chat(
 
 
 commit
+commit commit
+select * from farmily_board
 
 
 
