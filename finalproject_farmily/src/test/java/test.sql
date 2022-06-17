@@ -40,7 +40,7 @@ create table farmily_reservation(
 	day varchar2(50) not null,
 	board_no number not null,
 	id varchar2(100),
-	CONSTRAINT fk_farmily_reservation_board_no foreign key(board_no) references farmily_board(board_no)  --외래키 지정문
+	CONSTRAINT fk_farmily_reservation_board_no foreign key(board_no) references farmily_board(board_no),  --외래키 지정문
 	CONSTRAINT fk_farmily_reservation_id foreign key(id) references farmily_member (id)  --외래키 지정문
 )
 
@@ -48,7 +48,7 @@ create table farmily_jjim(
 	board_no number ,
 	id varchar2(100) ,
 	CONSTRAINT pk_farmily_jjim PRIMARY KEY(board_no, id)
-	CONSTRAINT fk_farmily_jjim_board_no foreign key(board_no) references farmily_board(board_no)  --외래키 지정문
+	CONSTRAINT fk_farmily_jjim_board_no foreign key(board_no) references farmily_board(board_no),  --외래키 지정문
 	CONSTRAINT fk_farmily_jjim_id foreign key(id) references farmily_member (id)  --외래키 지정문
 )
 
