@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <!-- Footer-->
-        <footer class="footer text-center">
+ 		 <footer th:fragment="footerFragment" class="footer text-center" id="footerFragment">
             <div class="container">
                 <div class="row">
                     <!-- Footer Location-->
@@ -32,8 +32,5 @@
                     </div>
                 </div>
             </div>
-        </footer>
-        <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Your Website 2022</small></div>
-        </div>
+        </footer>	
 </html>

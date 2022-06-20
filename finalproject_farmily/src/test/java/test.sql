@@ -67,7 +67,11 @@ commit
 commit commit
 select * from farmily_board
 
+create sequence seq_farmily_board;
+create sequence seq_farmily_file;
+create sequence seq_farmily_reservation;
 
+alter table farmily_board modify region null;
 
 
 
