@@ -41,7 +41,7 @@ public class WebSecurityConfig  {
 			위의 지정한 url 에는 permitAll() 로그인 인증없이 서비스 되고 
 			그 외의 요청에는 anyRequest().authenticated()  로그인 인증된 사용자만 접근할 수 있다 
 		 */
-		http.authorizeRequests().antMatchers("/","/home", "/assets/**", "/css/**","/images/**","/js/**").permitAll()
+		http.authorizeRequests().antMatchers("/","/home", "/assets/**", "/css/**","/images/**","/js/**", "/guest/**").permitAll()
 		.anyRequest().authenticated();
 		
 		// 인증(authentication): 로그인을 위한 설정

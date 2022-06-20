@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>회원가입폼</title>
+</head>
+<!--/*
+		Spring Security 적용시에는 
+		post 방식일때는 반드시   csrf token 을 발급받아 함께 서버에 전송해야 한다 
+		th:action 을 이용하면 자동으로 csrf token 이 hidden으로 삽입된다
+			ㄴ console / resource 확인!
+*/-->
+<form method="post"  action="/guest/registerMember" th:action="@{/guest/registerMember}" id="regForm">
+	<input type="text" name="id" id="memberId" placeholder="아이디"><span id="idCheckView"></span><br>
+	<input type="password" name="password" placeholder="비밀번호" required="required"><br>
+	<input type="text" name="name" placeholder="이름"  required="required"><br>
+	<input type="text" name="tel" placeholder="전화번호" required="required"><br>
+	<input type="text" name="region" placeholder="지역"  required="required"><br>
+<input type="submit" value="가입하기">
+</form>
+<script type="text/javascript">
+ 	$(document).ready(function(){
+		let checkResultId="";		
+		$("#regForm").submit(function(){				
+			if(checkResultId==""){
+				alert("아이디 중복확인을 하세요");
+				return false;
+			}		
+		});
+		$("#regForm :input[name=id]").keyup(function(){
+			let id=$(this).val().trim();
+			if(id.length<4 || id.length>10){
+				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css(
+						"background","pink");
+				checkResultId="";
+				return;
+			}
+			$.ajax({
+				type:"get",
+				url:"/guest/idcheckAjax",				
+				data:"id="+id,	
+				success:function(data){						
+					if(data=="fail"){
+					$("#idCheckView").html(id+" 사용불가!").css("background","red");
+						checkResultId="";
+					}else{						
+						$("#idCheckView").html(id+" 사용가능!").css(
+								"background","yellow");		
+						checkResultId=id;
+					}					
+				}//callback			
+			});//ajax
+		});//keyup
+	});//ready 
+</script>
+</div>
+</html>

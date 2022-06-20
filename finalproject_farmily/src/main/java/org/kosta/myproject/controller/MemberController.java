@@ -43,11 +43,6 @@ public class MemberController {
 		return "member/ajax-cafe";
 	}
 	
-	@RequestMapping("guest/idcheckAjax")
-	@ResponseBody
-	public String idcheckAjax(String id) {
-		return memberService.idcheck(id);
-	}
 	@GetMapping("getMemberTotalCount")	
 	@ResponseBody
 	public int getMemberTotalCount() {
@@ -83,22 +78,7 @@ public class MemberController {
 	public String updateResult(){
 		return "member/update_result";
 	}
-	@RequestMapping("guest/registerForm")
-	public String registerForm() {
-		return "member/registerForm";
-	}
-	@PostMapping("guest/registerMember")
-	public String register(MemberVO memberVO) {
-		memberService.registerMember(memberVO);//등록시 service에서 비밀번호를 암호화 한다 
-		return "redirect:/guest/registerResultView?id=" + memberVO.getId();
-	}
-
-	@RequestMapping("guest/registerResultView")
-	public ModelAndView registerResultView(String id) {
-		MemberVO memberVO = memberService.findMemberById(id);
-		return new ModelAndView("member/register_result", "memberVO", memberVO);
-	}
-
+	
 
 	
 }
