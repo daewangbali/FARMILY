@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.mapper.MemberMapper">
-
+	<sql id="selectMember">
+ 		select id,password,name,region,tel from farmily_member
+ 	</sql>
+ 	
+ 	<select id="getRegionList" resultType="string">
+ 		select distinct region from farmily_member
+ 	</select>
+ 	<select id="findMemberListByRegion" resultType="org.kosta.myproject.vo.MemberVO">
+ 		select id,name,tel from farmily_member
+ 		where region=#{value}
+ 	</select>
+ 	<!-- <select id="login" resultType="MemberVO" parameterType="MemberVO">
+ 		<include refid="selectMember"></include>
+ 		where id=#{id} and password=#{password}
+ 	</select> -->
+ 	<select id="getMemberCount" resultType="int">
+ 		select count(*) from farmily_member
+ 	</select>
+ 	<update id="updateMember" parameterType="org.kosta.myproject.vo.MemberVO">
+		update farmily_member set password=#{password}, name=#{name}, region=#{region}, tel=#{tel}
+		where id=#{id}
+	</update>
+	<insert id="registerMember" parameterType="org.kosta.myproject.vo.MemberVO">
+		insert into farmily_member(id,password,name,region,tel)
+		values(#{id},#{password},#{name},#{region},#{tel})
+	</insert>
+	<select id="idcheck" resultType="int">
+		select count(*) from farmily_member where id=#{value}
+	</select>
+	<!--  -->
+	<insert id="registerRole" parameterType="org.kosta.myproject.vo.Authority">
+		insert into farmily_authorities(username,authority) values(#{username},#{authority})
+	</insert>
+	<!-- Spring Security에서 로그인 인증시 사용 : 
+	      사용가능한(enabled 1) 계정일 경우만 조회. 
+	 -->
+	<select id="findMemberById" resultType="org.kosta.myproject.vo.MemberVO">
+ 		SELECT	id,	password,	name, region, enabled,tel
+		FROM	farmily_member
+		WHERE 	id=#{value}	
+		AND		enabled=1 		
+ 	</select>
+	<!-- Spring Security에서 권한 체크를 위해 사용 -->
+	<select id="findAuthorityByUsername"  resultType="org.kosta.myproject.vo.Authority">
+		SELECT	username,authority
+		FROM	farmily_authorities
+		WHERE	username=#{username}
+	</select>
 </mapper>

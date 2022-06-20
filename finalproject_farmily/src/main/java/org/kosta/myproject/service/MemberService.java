@@ -1,18 +1,17 @@
-package org.kosta.myproject.mapper;
+package org.kosta.myproject.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.kosta.myproject.vo.Authority;
 import org.kosta.myproject.vo.MemberVO;
-@Mapper
-public interface MemberMapper {
 
+public interface MemberService {
+	
 	MemberVO findMemberById(String id);
 
 	List<String> getRegionList();
 
-	List<MemberVO> findMemberListByRegion(String region);	
+	List<MemberVO> findMemberListByRegion(String region);
 
 	int getMemberCount();
 
@@ -20,10 +19,7 @@ public interface MemberMapper {
 
 	void registerMember(MemberVO vo);
 
-	int idcheck(String id);
-
+	String idcheck(String id);
+	
 	List<Authority> findAuthorityByUsername(String username);
-
-	void registerRole(Authority authority);
-
 }
