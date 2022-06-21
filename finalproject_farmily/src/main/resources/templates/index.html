@@ -1,107 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  	layout:decorate="~{layouts/layout}"
->	
-	
-    <body id="page-top" layout:fragment="main">
-        <!-- Masthead-->
-        <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
-                <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="assets/img/farmer1.png" alt="..." />
-                <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Farmily</h1>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
-            </div>
-             <!-- About Section Button-->
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" th:href="@{/guest/registerForm}" sec:authorize="isAuthenticated()==false">
-                        <i class="fas fa-download me-2"></i>
-                        회원가입 하러가기
-                    </a>
-                </div>
-        </header>
-        <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="portfolio">
-            <div class="container">
-                <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Grid Items-->
-                <div class="row justify-content-center">
-                    <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="img-item mx-auto">
-                            <div class="img-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="img-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/korea.png" usemap="#image-map" alt="..." />
-						<map name="image-map">
-						    <area target="" alt="gangwondo" title="gangwondo" th:href="@{/guest/map}" coords="217,11,216,19,214,25,207,31,197,36,183,36,172,36,153,39,146,39,139,39,128,41,129,47,134,53,143,56,150,57,159,67,159,74,159,83,157,89,157,97,158,103,166,103,171,107,176,111,176,119,175,129,175,139,175,146,181,151,190,147,192,141,204,142,211,142,216,146,224,149,233,152,241,154,250,157,269,154,277,154,285,156,291,154,296,149,296,140,287,130,278,123,276,112,276,102,264,94,258,84,247,73,240,66,236,51,235,42,225,30,225,20" shape="poly">
-						    <area target="" alt="incheon" title="incheon" href="incheon" coords="96,127,99,120,101,110,95,102,86,102,82,107,82,116,84,124" shape="poly">
-						    <area target="" alt="seoul" title="seoul" href="seoul" coords="102,113,108,119,110,124,116,123,125,120,130,115,132,108,128,101,122,96,116,96,112,100,109,104,103,104" shape="poly">
-						    <area target="" alt="gyeonggido" title="gyeonggido" href="gyeonggido" coords="124,43,118,47,108,48,100,51,100,57,104,61,108,64,107,71,104,77,96,73,93,79,96,83,92,87,86,90,81,93,80,99,87,100,92,99,99,101,106,99,114,95,123,92,128,95,132,103,133,111,133,116,128,119,119,123,112,123,105,119,98,123,95,130,100,135,99,142,92,140,91,146,100,149,101,155,104,159,108,164,112,169,120,169,126,167,132,169,139,171,145,168,151,162,156,157,162,154,167,151,174,148,174,140,174,131,174,123,174,115,170,109,164,102,156,99,156,91,157,83,157,72,157,65,151,61,146,54,138,54,130,51" shape="poly">
-						    <area target="" alt="chungcheongnamdo" title="chungcheongnamdo" href="chungcheongnamdo" coords="116,170,106,174,101,169,95,166,84,161,76,157,77,164,69,160,65,168,68,174,64,180,58,178,49,185,49,190,54,192,59,194,63,198,69,200,74,195,76,188,80,194,80,200,76,207,79,216,79,222,80,228,76,237,79,241,80,246,86,253,90,257,98,257,104,254,107,245,113,243,120,244,125,252,132,252,136,249,144,249,144,255,148,260,155,260,162,255,164,246,161,236,153,236,145,237,139,229,138,220,132,210,127,200,127,188,133,188,138,191,145,189,146,179,140,170,128,168" shape="poly">
-						    <area target="" alt="sejong" title="sejong" href="sejong" coords="140,192,144,199,145,205,145,212,143,217,136,220,133,209,133,200,128,193,133,186" shape="poly">
-						    <area target="" alt="daejeon" title="daejeon" href="daejeon" coords="151,213,144,216,137,220,136,225,137,231,142,234,148,234,154,234,156,228,160,222,156,216" shape="poly">
-						    <area target="" alt="chungcheongbukdo" title="chungcheongbukdo" href="chungcheongbukdo" coords="172,151,166,155,158,161,151,165,145,169,141,174,145,179,148,185,148,191,139,193,142,198,144,204,146,211,145,217,152,216,157,218,160,222,160,227,157,235,162,240,164,247,164,253,171,256,181,256,187,255,194,249,196,241,198,231,190,231,184,231,184,223,184,217,184,209,183,199,188,193,193,189,198,185,204,184,211,181,220,181,228,181,228,173,232,168,237,164,242,157,236,152,227,150,216,145,209,143,199,142,192,144,186,150,180,150" shape="poly">
-						    <area target="" alt="daegu" title="daegu" href="daegu" coords="224,289,224,278,225,271,230,264,237,261,244,258,251,257,253,264,253,272,248,280,242,284,236,289,235,294,227,295" shape="poly">
-						    <area target="" alt="gyeongsangbukdo" title="gyeongsangbukdo" href="gyeongsangbukdo" coords="281,156,275,156,264,156,257,159,249,159,242,159,236,164,232,172,225,182,218,182,212,178,201,180,195,191,188,198,188,205,187,211,187,218,189,223,189,229,197,229,201,232,201,239,198,245,193,251,189,256,189,263,191,269,197,272,209,273,209,284,209,290,218,290,225,291,226,277,227,268,234,261,240,259,248,257,253,257,255,266,254,274,246,282,241,286,237,292,244,294,254,299,262,297,269,294,278,293,281,287,288,284,296,289,303,291,309,289,312,277,313,268,319,258,309,258,303,255,302,248,302,240,301,230,303,220,306,214,306,207,301,198,308,191,309,184,306,175,304,166,302,158,302,151,293,148,289,152" shape="poly">
-						    <area target="" alt="ulsan" title="ulsan" href="ulsan" coords="308,289,300,289,292,291,291,283,280,289,280,296,276,303,280,307,286,309,292,316,299,319,304,308,303,300,310,297" shape="poly">
-						    <area target="" alt="busan" title="busan" href="busan" coords="288,318,282,328,272,330,261,338,260,344,268,346,276,347,285,339,292,333,294,326" shape="poly">
-						    <area target="" alt="gyeongsangnamdo" title="gyeongsangnamdo" href="gyeongsangnamdo" coords="203,286,204,276,196,273,188,270,181,270,176,274,172,282,169,291,165,301,166,308,167,315,165,323,164,330,165,336,168,342,174,346,175,356,180,361,191,357,200,350,208,350,207,358,214,361,222,359,224,368,230,366,231,358,228,351,232,344,240,345,242,338,248,337,252,342,258,346,260,335,266,331,272,327,278,326,284,318,284,311,280,304,276,300,270,294,263,297,255,302,248,298,242,294,236,294,228,298,222,293,213,290" shape="poly">
-						    <area target="" alt="geonrabukdo" title="geonrabukdo" href="jeonrabukdo" coords="141,247,137,251,131,253,122,253,118,245,111,244,104,251,104,257,98,257,93,260,92,267,96,270,104,270,100,275,93,276,98,282,90,282,85,286,80,290,74,297,82,298,90,297,93,302,85,305,76,306,76,314,78,319,86,322,92,320,93,314,99,309,107,310,112,314,120,310,126,313,124,320,125,326,132,326,139,325,147,325,152,318,157,321,160,330,165,320,168,315,167,306,162,298,167,291,170,284,172,278,176,273,181,270,187,268,187,258,181,254,174,254,167,254,160,255,156,260,147,260,144,255" shape="poly">
-						    <area target="" alt="gwangju" title="gwangju" href="gwangju" coords="103,350,97,344,91,340,93,334,101,332,111,332,116,336,123,338,122,346,115,347,108,348" shape="poly">
-						    <area target="" alt="jeonranamdo" title="jeonranamdo" href="jeonranamdo" coords="73,321,68,326,65,333,68,343,70,350,67,357,66,365,70,371,72,377,80,382,87,386,88,392,83,395,74,394,69,386,62,378,59,387,60,394,65,398,72,399,74,404,76,410,77,416,79,422,84,422,85,414,88,410,93,408,97,402,97,394,104,390,103,398,104,406,110,407,114,402,115,391,120,387,126,386,139,386,138,378,136,392,129,395,132,400,138,405,146,405,151,398,153,391,150,382,147,373,151,369,156,368,157,375,161,381,163,386,166,390,171,385,173,378,179,374,172,369,165,369,162,362,169,362,176,360,176,354,176,346,169,343,164,337,162,329,159,320,152,320,150,326,141,329,132,330,124,326,121,319,121,311,114,314,112,319,104,310,98,310,95,316,92,323,84,326,98,348,91,343,88,338,92,332,100,331,106,331,112,331,117,334,123,335,123,346,111,349,103,351,83,332" shape="poly">
-						    <area target="" alt="jejudo" title="jejudo" href="jejudo" coords="85,495,73,497,66,499,60,503,53,511,51,517,51,523,53,528,61,530,68,527,76,523,85,523,94,520,101,520,106,512,109,503,108,497,97,494" shape="poly">
-						</map>
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 2-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/harvest.png" alt="..." />
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
-        </section>
-        <!-- About Section-->
-        <section class="page-section bg-primary text-white mb-0" id="about">
-            <div class="container">
-                <!-- About Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- About Section Content-->
-                <div class="row">
-                    <div class="col-lg-4 ms-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                    <div class="col-lg-4 me-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
-                </div>
-            </div>   
-        </section>        
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+>
+
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Farmily</title>
+	<!-- Favicon-->
+		<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<div layout:fragment="main">        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -111,5 +33,5 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    </body>
+</div>
 </html>
