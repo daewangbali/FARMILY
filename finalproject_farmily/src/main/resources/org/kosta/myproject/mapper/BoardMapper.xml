@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.myproject.mapper.BoardMapper">
+	<sql id="selectBoard">
+ 		select board_no,title,content,select_categori,board_categori,region,created_date,id from farmily_board
+ 	</sql>
+	<insert id="registerBoard" parameterType="org.kosta.myproject.vo.BoardVO">
+		insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id)
+		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id})
+	</insert>
+	<select id="findAllBoardList" resultType="org.kosta.myproject.vo.BoardVO">
+		<include refid="selectBoard"/> 
+	</select>
+	<select id="findBoardListByRegion" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		<include refid="selectBoard"/> where region = #{value}
+	</select>
+	<select id="findBoardListByBoardCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		<include refid="selectBoard"/> where board_categori = #{value}
+	</select>
+	<select id="findBoardListBySelectCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		<include refid="selectBoard"/> where select_categori = #{value}
+	</select>
+</mapper>
