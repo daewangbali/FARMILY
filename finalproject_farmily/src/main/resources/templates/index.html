@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <head>
@@ -49,6 +49,23 @@
                 <p class="masthead-subheading font-weight-light mb-0">건강한 농촌 생활</p>
                 <p class="masthead-subheading font-weight-light mb-0">FARMILY가 함께합니다</p>
             </div>
+            <!-- About Section Button-->
+                <div class="text-center mt-4" sec:authorize="isAuthenticated()==false">
+                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/guest/loginForm}" >
+                        <i class="fas fa-download me-2"></i>
+                        로그인
+                    </a>
+                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/guest/registerForm}" >
+                        <i class="fas fa-download me-2"></i>
+                       	회원가입
+                    </a>
+                </div>
+                <div class="text-center mt-4" sec:authorize="isAuthenticated()==true">
+                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/member/mypage}" >
+                        <i class="fas fa-download me-2"></i>
+                       	<span sec:authentication="principal.name"></span>님, 좋은 하루 보내세요!<br>
+                    </a>
+                </div>
         </div>
 		 	<!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
@@ -245,13 +262,6 @@ window.onload = function(){
                 <div class="row">
                     <div class="col-lg-4 ms-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
                     <div class="col-lg-4 me-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
-                </div>
-                <!-- About Section Button-->
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                        <i class="fas fa-download me-2"></i>
-                        회원가입
-                    </a>
                 </div>
             </div>
         </section>	

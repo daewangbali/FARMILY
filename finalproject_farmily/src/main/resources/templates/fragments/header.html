@@ -24,12 +24,12 @@
 	                    <button id="logoutButton" type="button">로그아웃</a>
 	                    <form id="logoutForm" th:action="@{/member/logout}" method="post" style="display: none"></form>
 	                    	<script type="text/javascript">
-		$(function() {
-			$("#logoutButton").click(function(){
-				$("#logoutForm").submit();
-			});
-		});
-</script>
+							$(function() {
+								$("#logoutButton").click(function(){
+									$("#logoutForm").submit();
+								});
+							});
+							</script>
                     </th:block>
                 </div>
             </div>
