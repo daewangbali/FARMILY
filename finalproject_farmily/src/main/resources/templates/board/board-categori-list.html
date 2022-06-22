@@ -3,8 +3,9 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/layout}"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <div layout:fragment="main" style="height:700px;">
+  <div layout:fragment="main" style="height:700px;" >
   <br><br><br><br>
   	<table class="table table-bordered">
     <thead>
@@ -26,6 +27,6 @@
     </tbody>
   </table>
   
+	<button type="button" class="btn btn-secondary" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/registerPostForm (boardCategori=${param.boardCategori})}'|">글쓰기</button>
   </div>
-
 </html>

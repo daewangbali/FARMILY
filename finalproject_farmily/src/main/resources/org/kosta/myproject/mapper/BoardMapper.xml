@@ -9,15 +9,15 @@
 		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id})
 	</insert>
 	<select id="findAllBoardList" resultType="org.kosta.myproject.vo.BoardVO">
-		<include refid="selectBoard"/> 
+		<include refid="selectBoard"/> order by board_no desc
 	</select>
 	<select id="findBoardListByRegion" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
-		<include refid="selectBoard"/> where region = #{value}
+		<include refid="selectBoard"/> where region = #{value} order by board_no desc
 	</select>
 	<select id="findBoardListByBoardCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
-		<include refid="selectBoard"/> where board_categori = #{value}
+		<include refid="selectBoard"/> where board_categori = #{value} order by board_no desc
 	</select>
 	<select id="findBoardListBySelectCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
-		<include refid="selectBoard"/> where select_categori = #{value}
+		<include refid="selectBoard"/> where select_categori = #{value} order by board_no desc
 	</select>
 </mapper>

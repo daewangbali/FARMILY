@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}" 
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+<title>인증 / 인가 테스트 결과 페이지</title>
+</head>
+<div layout:fragment="main">
+인증 / 인가 테스트 결과 페이지<br><br>
+<span sec:authorize="isAuthenticated()">로그인한 사람이 볼 수 있음<br><br></span>
+<span sec:authorize="isAuthenticated()==false">로그인하지 않은 사람이 볼 수 있음<br><br></span>
+<span sec:authorize="hasRole('ROLE_ADMIN') and hasRole('ROLE_MEMBER') ">ROLE_ADMIN 이자 ROLE_MEMBER인 회원이 볼수 있음</span><br><br>
+</div>
+</html>
+
+
+
+
+
+
+
+
+

@@ -4,8 +4,13 @@ import java.util.List;
 
 import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.vo.BoardVO;
+import org.kosta.myproject.vo.MemberVO;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +37,18 @@ public class BoardController {
 		List<BoardVO> list = boardService.findBoardListByRegion(region);
 		model.addAttribute("boardList", list);
 		return "board/board-categori-list";
+	}
+	
+	@GetMapping("registerPostForm")
+	public String registerPostForm(String boardCategori) {
+		return "board/registerPostForm";
+	}
+	
+	@PostMapping("registerPost")
+	public String registerPost(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO,String boardCategori) {
+		boardVO.setId(membervo.getId());
+		boardService.registerBoard(boardVO);
+		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
 	}
 
 	
