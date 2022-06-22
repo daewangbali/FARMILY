@@ -24,7 +24,8 @@ public class GuestController {
 	}
 
 	@PostMapping("guest/registerMember")
-	public String register(MemberVO memberVO) {
+	public String register(String memberId, String memberPassword, String memberName, int memberTel, String memberRegion) {
+		MemberVO memberVO = new MemberVO(memberId, memberPassword, memberName, memberTel, memberRegion, 1);
 		memberService.registerMember(memberVO);// 등록시 service에서 비밀번호를 암호화 한다
 		return "redirect:/guest/registerResultView?id=" + memberVO.getId();
 	}
@@ -32,7 +33,7 @@ public class GuestController {
 	@RequestMapping("guest/registerResultView")
 	public ModelAndView registerResultView(String id) {
 		MemberVO memberVO = memberService.findMemberById(id);
-		return new ModelAndView("guest/register_result", "memberVO", memberVO);
+		return new ModelAndView("guest/registerResult", "memberVO", memberVO);
 	}
 
 	@RequestMapping("guest/idcheckAjax")
