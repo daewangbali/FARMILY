@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/* 
+		1. 타임리프 변수를 자바스크립트에서 사용하기 위한 선언 
+         <script th:inline="javascript"> </script>
+         
+         2. 스크립트 시작과 끝에 CDATA 반드시 선언 	
+        CDATA Section :   Character DATA 영역 
+          이 영역에는태그가 없으며  문자열 자체로 인식하라고   parser에게 알리는 역할
+          
+		/*<![CDATA[*/ 
+		
+		/*]]*/
+		
+		3. ${}를 주석으로 감싸기
+         자바스크립트에서 Thymeleaf 변수 사용시 
+          /*[[ ${} ]]*/
+ */-->
+<script type="text/javascript" th:inline="javascript">
+//  org.kosta.myproject.config.security.MemberAuthenticationProvider 에서 throw 한 Exception 메세지가 출력
+/*<![CDATA[*/ 
+	let info=/*[[ ${session.SPRING_SECURITY_LAST_EXCEPTION.message} ]]*/ null;
+	alert(info);
+	location.href="/guest/loginForm";
+	/*]]*/	
+</script>
+</html>

@@ -41,4 +41,15 @@ public class GuestController {
 	public String idcheckAjax(String id) {
 		return memberService.idcheck(id);
 	}
+	
+	@RequestMapping("guest/loginForm")
+	public String loginForm() {
+		return "guest/loginForm";
+	}
+	
+	//WebSecurityConfig에 등록되어 있음 ( failureUrl("/login_fail") )
+	@RequestMapping("guest/loginFail")
+	public String loginFail() {
+		return "guest/loginFail";
+	}
 }

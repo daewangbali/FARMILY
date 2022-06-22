@@ -31,11 +31,7 @@ public class MemberController {
 			return "member/findMemberById_success" ;
 		}
 	}
-	//WebSecurityConfig에 등록되어 있음 ( failureUrl("/login_fail") )
-	@RequestMapping("login_fail")
-	public String loginFail() {
-		return "member/login_fail";
-	}
+
     //spring security에서 로그인 , 로그아웃 처리를 하므로 login , logout 관련 메서드는 필요없다  
 	//guest/ 가 아닌 모든 컨트롤러는 인증이 되어야 한다. 비인증 상태에서 접근할 경우 로그인 폼이 있는 home으로 redirect 됨 
 	@RequestMapping("enterCafe")
