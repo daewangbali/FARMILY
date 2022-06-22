@@ -6,6 +6,8 @@ create table farmily_member(
 	region varchar2(100) not null,
 	enabled number default 1
 );
+insert into farmily_member(id,password,name,tel,region,enabled) values('java','a','감자깡','11','전남',1)
+select * from farmily_member where id='java'
 
 create table farmily_authorities(
 	authority varchar2(100) primary key,
@@ -25,6 +27,15 @@ create table farmily_board(
 	id varchar2(100) not null,
 	CONSTRAINT fk_farmily_board foreign key(id) references farmily_member (id)  --외래키 지정문
 )
+
+insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id)
+values(seq_farmily_board.nextval,'전남','test','농촌활동','일일알바','전남',sysdate,'java')
+
+insert into farmily_board
+values(seq_farmily_board.nextval,'팔아요','가나다','장터','중고거래','전남',sysdate,'java')
+
+select * from farmily_board
+
 create table farmily_file(
 	file_no number primary key,
 	original_filename varchar2(100) not null,

@@ -27,6 +27,13 @@ public class BoardController {
 		model.addAttribute("boardList",list);
 		return "board/board-categori-list";
 	}
+	@RequestMapping("guest/boardListByRegion")
+	public String findBoardListByRegion(String region,Model model) {
+		List<BoardVO> list = boardService.findBoardListByRegion(region);
+		model.addAttribute("boardList", list);
+		return "board/board-categori-list";
+	}
+
 	
 	
 }
