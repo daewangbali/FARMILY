@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <header th:fragment="headerFragment">
 	<!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="#page-top" th:href="@{/}">Farmily</a>
-                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                	<th:block sec:authorize="isAuthenticated()==false">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#login" th:href="@{/guest/loginForm}" sec:authorize="isAuthenticated()==false">로그인</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#register" th:href="@{/guest/registerForm}" sec:authorize="isAuthenticated()==false">회원가입</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#register" th:href="@{/guest/registerForm}" sec:authorize="isAuthenticated()==true">로그아웃</a></li>
-                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#농촌활동" th:href="@{/guest/boardListByBoardCategori(boardCategori='농촌활동')}">농촌활동</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#login" th:href="@{/guest/loginForm}">로그인</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#register" th:href="@{/guest/registerForm}">회원가입</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#농촌활동" th:href="@{/guest/boardListByBoardCategori(boardCategori='농촌활동')}">농촌활동</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#market" th:href="@{/guest/boardListByBoardCategori(boardCategori='장터')}">장터</a></li>
                     </ul>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()==true">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#mypage" th:href="@{/member/mypage}">마이페이지</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#농촌활동" th:href="@{/guest/boardListByBoardCategori(boardCategori='농촌활동')}">농촌활동</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#market" th:href="@{/guest/boardListByBoardCategori(boardCategori='장터')}">장터</a></li>
+                    </ul>
+	                    <button id="logoutButton" type="button">로그아웃</a>
+	                    <form id="logoutForm" th:action="@{/member/logout}" method="post" style="display: none"></form>
+	                    	<script type="text/javascript">
+		$(function() {
+			$("#logoutButton").click(function(){
+				$("#logoutForm").submit();
+			});
+		});
+</script>
+                    </th:block>
                 </div>
             </div>
         </nav>
