@@ -1,11 +1,23 @@
 package org.kosta.myproject.controller;
 
+import java.util.List;
+
+import org.kosta.myproject.service.MemberService;
+import org.kosta.myproject.vo.MemberVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
+	private final MemberService memberService;
 	/* 
 	 * @Secure 어노테이션: 인가 처리하는 어노테이션 - 권한이 부여된 사람들만 서비스를 제공받도록 설정한다 
 	 * @Secured("ROLE_ADMIN") -> ROLE_ADMIN 권한이 있는 접속자만 서비스를 받을 수 있다 
@@ -24,10 +36,21 @@ public class AdminController {
 		king id로 회원 가입 후 sql 상에서 ROLE_ADMIN 으로 권한을 추가한 후 
 		로그인해서 아래 관리자 서비스를 확인한다 					 
 	 */
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("admin/main")
-	public String adminMain() {
+	@Secured("ROLE_MASTER")
+	@RequestMapping("admin/grantAdmin")
+	public ModelAndView adminMain() {
 		// 구현내용 
-		return "admin/main";
+		List<MemberVO> waitingMemberVOList = memberService.findAllWaitingMember();
+		return new ModelAndView("admin/grantAdmin","waitingMemberVOList", waitingMemberVOList);
+	}
+	
+	@Secured("ROLE_MASTER")
+	@PostMapping("admin/grantAdminMember")
+	@Transactional
+	@ResponseBody
+	public String grantAdminMember(String id) {
+		memberService.grantAdminMember(id);
+		memberService.deleteWaitingMember(id);
+		return "redirect:admin/grantAdmin";
 	}
 }

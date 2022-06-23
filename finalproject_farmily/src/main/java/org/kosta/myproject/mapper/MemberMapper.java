@@ -26,4 +26,10 @@ public interface MemberMapper {
 
 	void registerRole(Authority authority);
 
+	List<MemberVO> findAllWaitingMember();
+
+	void grantAdminMember(String id);
+
+	void deleteWaitingMember(String id);
+
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- csrf token -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+		<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <title>Clean Blog - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/css/styles2.css" rel="stylesheet" />
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#home" th:href="@{/}">Home</a>
+                <a class="navbar-brand" href="#top">맨위로</a>
+
+                </button>                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>승인 대기자 목록</h1>
+                            <span class="subheading">시스템 관리자 전용 페이지입니다.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+            	<tr th:each="waitingMemberVO:${waitingMemberVOList}">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="#">
+                            <h2 class="post-title"><td th:text="${waitingMemberVOStat.count}"></td></h2>
+                            <h3 class="post-subtitle"><td th:text="|아이디: |+${waitingMemberVO.id}"></td></h3>
+                        </a>
+                        <p class="post-meta">
+                            <a href="#"><td th:text="|이름: |+${waitingMemberVO.name}"></td></a>
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <div class="d-flex justify-content-end mb-4"><button class="btn btn-primary text-uppercase" name="adminButton" th:attrappend="id=${waitingMemberVO.id}">관리자 승인</button></div>
+                    <hr class="my-4" />
+                </div>
+                </tr>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/js/scripts2.js"></script>
+        <!-- JS -->
+        <script type="text/javascript">
+        	$(function(){
+        		let token = $("meta[name='_csrf']").attr("content");
+        		let header = $("meta[name='_csrf_header']").attr("content");
+        		$("button[name=adminButton]").click(function(){
+        			if(confirm('승인을 허가하시겠습니까?')){
+        			let id = $(this).attr('id');
+        				$.ajax({
+        					type: "post",
+        					url: "/admin/grantAdminMember?id="+id,
+        					beforeSend : function(xhr)
+        		            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+        						xhr.setRequestHeader(header, token);
+        		            },
+        					success: function(){
+        						alert("승인이 완료되었습니다.");
+        						location.href = "/admin/grantAdmin";
+        					}//ajax success
+        				});//ajax
+        			}//confirm
+        		}); //function
+        	});
+        </script>
+    </body>
+</html>

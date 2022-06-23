@@ -7,6 +7,9 @@
             <div class="container">
                 <a class="navbar-brand" href="#page-top" th:href="@{/}">Farmily</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                	<th:block sec:authorize="hasRole('ROLE_MASTER')">
+                    	<a th:href="@{/admin/grantAdmin}">관리자 승인대기 목록</a><br>
+                    </th:block>
                 	<th:block sec:authorize="isAuthenticated()==false">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#login" th:href="@{/guest/loginForm}">로그인</a></li>

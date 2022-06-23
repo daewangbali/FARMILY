@@ -22,4 +22,12 @@ public interface MemberService {
 	String idcheck(String id);
 	
 	List<Authority> findAuthorityByUsername(String username);
+
+	void registerAdminMember(MemberVO memberVO);
+
+	List<MemberVO> findAllWaitingMember();
+
+	void grantAdminMember(String id);
+
+	void deleteWaitingMember(String id);
 }

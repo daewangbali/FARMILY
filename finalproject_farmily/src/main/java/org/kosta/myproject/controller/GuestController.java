@@ -24,9 +24,14 @@ public class GuestController {
 	}
 
 	@PostMapping("guest/registerMember")
-	public String register(String memberId, String memberPassword, String memberName, int memberTel, String memberRegion) {
+	public String register(String memberRole, String memberId, String memberPassword, String memberName, int memberTel, String memberRegion) {
 		MemberVO memberVO = new MemberVO(memberId, memberPassword, memberName, memberTel, memberRegion, 1);
-		memberService.registerMember(memberVO);// 등록시 service에서 비밀번호를 암호화 한다
+		// 등록시 service에서 비밀번호를 암호화 한다
+		if(memberRole.equals("ROLE_ADMIN")) {
+			memberService.registerAdminMember(memberVO);
+		}else {
+			memberService.registerMember(memberVO);
+		}
 		return "redirect:/guest/registerResultView?id=" + memberVO.getId();
 	}
 
