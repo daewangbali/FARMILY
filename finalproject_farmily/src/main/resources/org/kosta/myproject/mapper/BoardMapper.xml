@@ -20,4 +20,13 @@
 	<select id="findBoardListBySelectCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> where select_categori = #{value} order by board_no desc
 	</select>
+	
+	<update id="updateBoard">
+		update
+	</update>
+	
+	<delete id="deleteBoard">
+		delete
+	</delete>
+	
 </mapper>

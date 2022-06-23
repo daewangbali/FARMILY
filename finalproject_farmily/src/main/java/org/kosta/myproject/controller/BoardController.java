@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.vo.BoardVO;
+import org.kosta.myproject.vo.FileVO;
 import org.kosta.myproject.vo.MemberVO;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,10 +46,15 @@ public class BoardController {
 	}
 	
 	@PostMapping("registerPost")
-	public String registerPost(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO,String boardCategori) {
+	public String registerPost(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO, FileVO fileVO, String boardCategori, Model model, MultipartFile file) throws Exception{
 		boardVO.setId(membervo.getId());
-		boardService.registerBoard(boardVO);
+		boardService.registerBoard(boardVO, fileVO, file);
 		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
+	}
+	
+	@RequestMapping("boardView")
+	public String boardView(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO, FileVO fileVO, String boardCategori, Model model, MultipartFile file) throws Exception {
+		return "board/boardView";
 	}
 
 	

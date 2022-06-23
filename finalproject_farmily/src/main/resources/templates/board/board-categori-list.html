@@ -10,19 +10,25 @@
   	<table class="table table-bordered">
     <thead>
       <tr>
-        <th>NO</th>
-        <th>TITLE</th>
-        <th>CONTENT</th>
-        <th>CATEGORI</th>
+        <th>글번호</th>
+        <th>지역</th>
+        <th>카테고리</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
       </tr>
     </thead>
     <tbody>
 
       <tr th:each="board:${boardList}">
-        <td th:text="${board.boardNo}">count</td>
-        <td th:text="${board.title}">id</td>
-        <td th:text="${board.content}">name</td>
-        <td th:text="${board.boardCategori}">address</td>
+        <td th:text="${board.boardNo}">글번호</td>
+        <td th:text="${board.region}">지역</td>
+        <td th:text="${board.boardCategori}">카테고리</td>
+        <td>
+        	<a th:text="${board.title}" th:href="@{/boardView(boardNo=${board.boardNo})}"></a>
+        </td>
+        <td th:text="${board.id}">작성자</td>
+        <td th:text="${board.createdDate}">작성일</td>
       </tr>
     </tbody>
   </table>

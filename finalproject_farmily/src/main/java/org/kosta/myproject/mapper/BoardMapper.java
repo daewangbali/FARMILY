@@ -21,4 +21,6 @@ public interface BoardMapper {
 	
 	//게시물 카테고리 리스트(알바 or 체험 or 중고거래 or 자유)
 	List<BoardVO> findBoardListBySelectCategori(String selectCategori);
+	
+	
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div layout:fragment="main" style="height: 700px;">
+	<br>
+	<br>
+	<br>
+	<br>
+	
+	<form method="get" enctype="multipart/form-data">
+		<span th:name="boardCategori" th:text="${param.boardCategori}"></span>
+		<table class="table">
+			
+			<tr>
+
+				<td th:if="${param.boardCategori=='농촌활동'}"><input type="text"
+					name="region" placeholder="지역" required="required" size="50">
+				</td>
+				<td th:unless="${param.boardCategori=='장터'}"><input
+					type="hidden" name="region" value=""></td>
+			</tr>
+			<tr>
+				<td><h1 th:text="${param.title}"></h1>제목</td>
+			</tr>
+			<tr>
+				<td><a th:href>다운받기</a></td>
+			</tr>
+			<tr>
+				<td><textarea rows="10" class="form-control" name="content"
+						placeholder="본문내용" required="required"></textarea></td>
+			</tr>
+
+		</table>
+	
+		<div class="text-center">
+			<input type="hidden" name="boardCategori"
+				value="${param.boardCategori}" th:value="${param.boardCategori}">
+			
+			<br>
+			<button class="btn btn-success">수정하기</button>
+			<button class="btn btn-light">삭제하기</button>
+		</div>
+	</form>
+	
+	
+	
+	<!--
+	<h1 th:text="${board.title}">제목입니다</h1>
+	<p th:text="${board.content}">내용</p>
+	   -->
+	
+	
+</div>	
+</html>

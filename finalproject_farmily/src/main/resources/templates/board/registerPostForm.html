@@ -1,61 +1,64 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/layout}"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-<div layout:fragment="main" style="height:700px;"  >
-<br><br><br><br>
-	<form method="post" th:action="@{/registerPost}">
-	<span th:name="boardCategori" th:text="${param.boardCategori}"></span>
-<table class="table">
-	<tr>
-		<td>
-			<th:block th:if="${param.boardCategori=='농촌활동'}">
-				<select name="selectCategori" required="required" >
-					<option value="">--유형--</option>
-					<option th:value="일일알바" th:text="일일알바"></option>
-					<option th:value="체험활동" th:text="체험활동"></option>
-					
-				</select>
-			</th:block>
-			<th:block th:unless="${param.boardCategori=='농촌활동'}">
-				<select name="selectCategori" required="required">
-					<option value="">--유형--</option>
-					<option th:value="중고거래" th:text="중고거래"></option>
-					<option th:value="자유게시판" th:text="자유게시판"></option>
-				</select>
-			</th:block>
-		</td>
-	</tr>
-		<tr>
-		
-		<td th:if="${param.boardCategori=='농촌활동'}">
-		<input type="text" name="region" placeholder="지역" required="required" size="50">
-		</td>
-		<td th:unless="${param.boardCategori=='장터'}">
-		<input type="hidden" name="region" value="">
-		</td>
-	</tr>
-	<tr>
-		<td><input type="text" name="title" placeholder="글제목" required="required" size="100"></td>
-	</tr>
-	<tr>
-		<td>
-			<textarea rows="10" class="form-control" name="content" placeholder="본문내용" required="required"></textarea>
-		</td>
-	</tr>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div layout:fragment="main" style="height: 700px;">
+	<br>
+	<br>
+	<br>
+	<br>
+	<form method="post" th:action="@{/registerPost}" enctype="multipart/form-data">
+		<span th:name="boardCategori" th:text="${param.boardCategori}"></span>
+		<table class="table">
+			<tr>
+				<td><th:block th:if="${param.boardCategori=='농촌활동'}">
+						<select name="selectCategori" required="required">
+							<option value="">--유형--</option>
+							<option th:value="일일알바" th:text="일일알바"></option>
+							<option th:value="체험활동" th:text="체험활동"></option>
 
-</table>
-<div class="text-center">
-	<input type="hidden" name="boardCategori" value="${param.boardCategori}" th:value="${param.boardCategori}">
-	<button type="submit" class="btn btn-success">확인</button>
-	<button type="reset" class="btn btn-light">취소</button>
-</div>
-</form>
+						</select>
+					</th:block> <th:block th:unless="${param.boardCategori=='농촌활동'}">
+						<select name="selectCategori" required="required">
+							<option value="">--유형--</option>
+							<option th:value="중고거래" th:text="중고거래"></option>
+							<option th:value="자유게시판" th:text="자유게시판"></option>
+						</select>
+					</th:block></td>
+			</tr>
+			<tr>
+
+				<td th:if="${param.boardCategori=='농촌활동'}"><input type="text"
+					name="region" placeholder="지역" required="required" size="50">
+				</td>
+				<td th:unless="${param.boardCategori=='장터'}"><input
+					type="hidden" name="region" value=""></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="title" placeholder="글제목"
+					required="required" size="100"></td>
+			</tr>
+			<tr>
+				<td><input type="file" name="file"></td>
+			</tr>
+			<tr>
+				<td><textarea rows="10" class="form-control" name="content"
+						placeholder="본문내용" required="required"></textarea></td>
+			</tr>
+
+		</table>
 	
+		<div class="text-center">
+			<input type="hidden" name="boardCategori"
+				value="${param.boardCategori}" th:value="${param.boardCategori}">
+			
+			<br>
+			<button type="submit" class="btn btn-success">확인</button>
+			<button type="reset" class="btn btn-light">취소</button>
+		</div>
+	</form>
+
 
 </div>
 </html>
-  
