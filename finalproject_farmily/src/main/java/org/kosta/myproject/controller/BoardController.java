@@ -56,6 +56,7 @@ public class BoardController {
 	public String boardView(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO, FileVO fileVO, String boardCategori, Model model, MultipartFile file) throws Exception {
 		return "board/boardView";
 	}
+	
 
 	
 	
