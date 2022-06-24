@@ -29,4 +29,7 @@ public interface BoardMapper {
 
 	//게시물 농활 리스트
 	List<BoardVO> findBoardFarmingListByBoardCategori(String farmingCategori);
+
+	// 내가 쓴 게시물 조회
+	List<BoardVO> findMyPostListById(String id);
 }

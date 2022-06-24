@@ -23,6 +23,11 @@ public interface BoardService {
 	//게시글 상세페이지
 	BoardVO boardView(String boardNo);
 	
-	//게시물 농활 리스트
+	//농촌활동 게시물 리스트(+지도)
 	List<BoardVO> findBoardFarmingListByBoardCategori(String farmingCategori);
+	
+	//마이페이지
+	List<BoardVO> findMyPostListById(String id);
+
+	
 }

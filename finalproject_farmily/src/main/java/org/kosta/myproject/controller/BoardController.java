@@ -22,69 +22,82 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardController {
 	private final BoardService boardService;
-		
+
 	@RequestMapping("guest/boardListByBoardCategori")
-	public String findBoardListByBoardCategori(String boardCategori,Model model) {
+	public String findBoardListByBoardCategori(String boardCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
-		model.addAttribute("boardList",list);
+		model.addAttribute("boardList", list);
 		return "board/board-categori-list";
 	}
+
 	@RequestMapping("guest/boardListBySelectCategori")
-	public String boardListBySelectCategori(String selectCategori,Model model) {
+	public String boardListBySelectCategori(String selectCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListBySelectCategori(selectCategori);
-		model.addAttribute("boardList",list);
+		model.addAttribute("boardList", list);
 		return "board/board-categori-list";
 	}
+
 	@RequestMapping("guest/boardListByRegion")
-	public String findBoardListByRegion(String region,Model model) {
+	public String findBoardListByRegion(String region, Model model) {
 		List<BoardVO> list = boardService.findBoardListByRegion(region);
 		model.addAttribute("boardList", list);
 		return "board/board-categori-list";
 	}
-	
+
 	@GetMapping("registerPostForm")
 	public String registerPostForm(String boardCategori) {
 		return "board/registerPostForm";
 	}
-	
+
 	@PostMapping("registerPost")
-	public String registerPost(@AuthenticationPrincipal MemberVO membervo,BoardVO bvo, String boardCategori, Model model, MultipartFile file) throws Exception{
+	public String registerPost(@AuthenticationPrincipal MemberVO membervo, BoardVO bvo, String boardCategori,
+			Model model, MultipartFile file) throws Exception {
 		bvo.setId(membervo.getId());
-		
-		if(file.isEmpty()) {
+
+		if (file.isEmpty()) {
 			bvo.setFilename("");
 			bvo.setFilepath("");
-		
-		}else {
+
+		} else {
 			String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
 			UUID uuid = UUID.randomUUID();
 			String fileName = uuid + "_" + file.getOriginalFilename();
-					
+
 			File saveFile = new File(projectPath, fileName);
-			
+
 			file.transferTo(saveFile);
-		
+
 			bvo.setFilename(fileName);
 			bvo.setFilepath("/files/" + fileName);
 		}
 		boardService.registerBoard(bvo);
 		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
 	}
-	
+
 	@RequestMapping("boardView")
 	public String boardView(String boardNo, Model model) throws Exception {
-		BoardVO boardVO =  boardService.boardView(boardNo);
-		model.addAttribute("boardVO",boardVO);
+		BoardVO boardVO = boardService.boardView(boardNo);
+		model.addAttribute("boardVO", boardVO);
 		return "board/boardView";
 	}
+
+	@RequestMapping("mypage")
+	public String mypage() {
+		return "mypage/index";
+	}
+	
 	@RequestMapping("guest/boardFarmingListByBoardCategori")
 	public String findBoardFarmingListByBoardCategori(String farmingCategori, Model model) throws Exception {
 		List<BoardVO> list = boardService.findBoardFarmingListByBoardCategori(farmingCategori);
 		model.addAttribute("boardFarmingList",list);
 		return "board/boardFarmingList";
-	}	
+	}
 	
+	@RequestMapping("mypage/findMyPostListById")
+	public String findMyPostById(@AuthenticationPrincipal MemberVO membervo, Model model) {
+		List<BoardVO> list = boardService.findMyPostListById(membervo.getId());
+		model.addAttribute("boardList", list);
+		return "mypage/findMyPostListById";
+	}
 
-	
-	
 }
