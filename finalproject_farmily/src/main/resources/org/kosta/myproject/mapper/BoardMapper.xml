@@ -22,7 +22,9 @@
 	<select id="findBoardListBySelectCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> where select_categori = #{value} order by board_no desc
 	</select>
-	
+	<select id="findBoardFarmingListByBoardCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		<include refid="selectBoard"/> where board_categori = '농촌활동' order by board_no desc
+	</select>
 	<update id="updateBoard">
 		update
 	</update>
@@ -30,9 +32,6 @@
 	<delete id="deleteBoard">
 		delete
 	</delete>
-	<select id="findMyPostListById" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
-		<include refid="selectBoard"/> where id=#{value} order by board_no desc
-	</select>
 	
 	<select id="boardView" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		select board_no,title,content,select_categori,board_categori,region,created_date,id, filename, filepath 

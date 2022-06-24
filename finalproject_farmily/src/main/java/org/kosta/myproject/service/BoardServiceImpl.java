@@ -44,11 +44,11 @@ public class BoardServiceImpl implements BoardService{
 	public BoardVO boardView(String boardNo){
 		return boardMapper.boardView(boardNo);
 	}
-		
-	//내가 쓴 게시물 조회
-		@Override
-		public List<BoardVO> findMyPostListById(String id) {
-			return boardMapper.findMyPostListById(id);
-		}
+	//게시물 농활 리스트
+	@Override
+	public List<BoardVO> findBoardFarmingListByBoardCategori(String farmingCategori) {
+		return boardMapper.findBoardFarmingListByBoardCategori(farmingCategori);
+	}
+	
 
 }

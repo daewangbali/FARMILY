@@ -23,5 +23,6 @@ public interface BoardService {
 	//게시글 상세페이지
 	BoardVO boardView(String boardNo);
 	
-	List<BoardVO> findMyPostListById(String id);
+	//게시물 농활 리스트
+	List<BoardVO> findBoardFarmingListByBoardCategori(String farmingCategori);
 }
