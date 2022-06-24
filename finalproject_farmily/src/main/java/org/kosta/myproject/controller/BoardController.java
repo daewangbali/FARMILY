@@ -56,8 +56,17 @@ public class BoardController {
 	public String boardView(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO, FileVO fileVO, String boardCategori, Model model, MultipartFile file) throws Exception {
 		return "board/boardView";
 	}
+	@RequestMapping("mypage")
+	public String mypage() {
+		return "member/mypage";
+	}
 	
-
+	@RequestMapping("findMyPostListById")
+	public String findMyPostById(@AuthenticationPrincipal MemberVO membervo,Model model) {
+		List<BoardVO> list = boardService.findMyPostListById(membervo.getId());
+		model.addAttribute("boardList", list);
+		return "member/findMyPostListById";
+	}
 	
 	
 }

@@ -27,7 +27,8 @@ create table farmily_board(
 	id varchar2(100) not null,
 	CONSTRAINT fk_farmily_board foreign key(id) references farmily_member (id)  --외래키 지정문
 )
-select * from farmily_board
+select * from farmily_board where id='java'
+
 insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id)
 values(seq_farmily_board.nextval,'전남','test','농촌활동','일일알바','전남',sysdate,'java')
 

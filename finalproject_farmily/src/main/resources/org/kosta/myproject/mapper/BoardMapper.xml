@@ -28,5 +28,8 @@
 	<delete id="deleteBoard">
 		delete
 	</delete>
+	<select id="findMyPostListById" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		<include refid="selectBoard"/> where id=#{value} order by board_no desc
+	</select>
 	
 </mapper>
