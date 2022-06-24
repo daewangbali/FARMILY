@@ -1,15 +1,11 @@
 package org.kosta.myproject.service;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import org.kosta.myproject.mapper.BoardMapper;
 import org.kosta.myproject.vo.BoardVO;
-import org.kosta.myproject.vo.FileVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,18 +16,8 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardMapper boardMapper;
 	//게시물 작성
 	@Override
-	public void registerBoard(BoardVO bvo, FileVO fileVO, MultipartFile file) throws Exception {
-		String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-		UUID uuid = UUID.randomUUID();
-		String fileName = uuid + "_" + file.getOriginalFilename();
-				
-		File saveFile = new File(projectPath, fileName);
-		file.transferTo(saveFile);
-		
-		fileVO.setFilename(fileName);
-		fileVO.setFilepath("/files/" + fileName);
-		
-		boardMapper.registerBoard(bvo);
+	public void registerBoard(BoardVO bvo){
+		boardMapper.registerBoardBoard(bvo);
 	}
 	//전체 게시물 리스트
 	@Override
@@ -53,10 +39,12 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> findBoardListBySelectCategori(String selectCategori) {
 		return boardMapper.findBoardListBySelectCategori(selectCategori);
 	}
-	//내가 쓴 게시물 조회
+	//게시글 상세보기
 	@Override
-	public List<BoardVO> findMyPostListById(String id) {
-		return boardMapper.findMyPostListById(id);
+	public BoardVO boardView(String boardNo){
+		return boardMapper.boardView(boardNo);
 	}
+		
+	
 
 }

@@ -19,9 +19,6 @@ public interface BoardService {
 		
 	//게시물 카테고리 리스트(알바 or 체험 or 중고거래 or 자유)
 	List<BoardVO> findBoardListBySelectCategori(String selectCategori);
-	
-	//내가 쓴 게시물 조회
-	List<BoardVO> findMyPostListById(String id);
 			
 	//게시글 상세페이지
 	BoardVO boardView(String boardNo);

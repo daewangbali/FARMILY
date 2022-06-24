@@ -1,6 +1,8 @@
 package org.kosta.myproject.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.vo.BoardVO;
@@ -46,27 +48,38 @@ public class BoardController {
 	}
 	
 	@PostMapping("registerPost")
-	public String registerPost(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO, FileVO fileVO, String boardCategori, Model model, MultipartFile file) throws Exception{
-		boardVO.setId(membervo.getId());
-		boardService.registerBoard(boardVO, fileVO, file);
+	public String registerPost(@AuthenticationPrincipal MemberVO membervo,BoardVO bvo, String boardCategori, Model model, MultipartFile file) throws Exception{
+		bvo.setId(membervo.getId());
+		
+		if(file.isEmpty()) {
+			bvo.setFilename("");
+			bvo.setFilepath("");
+		
+		}else {
+			String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid + "_" + file.getOriginalFilename();
+					
+			File saveFile = new File(projectPath, fileName);
+			
+			file.transferTo(saveFile);
+		
+			bvo.setFilename(fileName);
+			bvo.setFilepath("/files/" + fileName);
+		}
+		boardService.registerBoard(bvo);
 		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
 	}
 	
 	@RequestMapping("boardView")
-	public String boardView(@AuthenticationPrincipal MemberVO membervo,BoardVO boardVO, FileVO fileVO, String boardCategori, Model model, MultipartFile file) throws Exception {
+	public String boardView(String boardNo, Model model) throws Exception {
+		BoardVO boardVO =  boardService.boardView(boardNo);
+		model.addAttribute("boardVO",boardVO);
 		return "board/boardView";
 	}
-	@RequestMapping("mypage")
-	public String mypage() {
-		return "member/mypage";
-	}
 	
-	@RequestMapping("findMyPostListById")
-	public String findMyPostById(@AuthenticationPrincipal MemberVO membervo,Model model) {
-		List<BoardVO> list = boardService.findMyPostListById(membervo.getId());
-		model.addAttribute("boardList", list);
-		return "member/findMyPostListById";
-	}
+	
+
 	
 	
 }
