@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <div class="text-center mt-4" sec:authorize="isAuthenticated()==true">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/member/mypage}" >
+                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/mypage}" >
                         <i class="fas fa-download me-2"></i>
                        	<span sec:authentication="principal.name"></span>님, 좋은 하루 보내세요!<br>
                     </a>

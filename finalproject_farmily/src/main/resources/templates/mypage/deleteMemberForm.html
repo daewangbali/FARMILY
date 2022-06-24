@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Creative - Start Bootstrap Theme</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/guest/assets/favicon.ico" />
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@200&display=swap" rel="stylesheet" />
+        <!-- SimpleLightbox plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/guest/css/styles.css" rel="stylesheet" />
+        <!-- csrf token -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+		<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <!-- Ajax -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        	$(function(){
+        		let token = $("meta[name='_csrf']").attr("content");
+        		let header = $("meta[name='_csrf_header']").attr("content");
+        		
+        		$("#checkButton").click(function(){
+        			let memberId = $("#memberId").val();
+        			let deleteCheck = $("#deleteCheck").val();
+        			
+        			$.ajax({
+        				type:"post",
+        				url:"/mypage/deleteCheck",				
+        				data: 
+        					{
+        					"memberId": memberId,
+        					"deleteCheck" : deleteCheck
+        					},
+        				beforeSend : function(xhr)
+    		            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+    						xhr.setRequestHeader(header, token);
+    		            },
+        				success:function(data){						
+        					if(data=="ok"){
+        						 $("#deleteMemberButton").attr("disabled", false); //해제
+        					}else{						
+        						alert("입력을 다시 한번 확인해주세요!");
+        					}
+        				}//success
+        			});//ajax
+        		});//checkMemberButton
+        		$("#deleteMemberButton").click(function(){
+        			if(confirm("회원탈퇴를 진행하시겠습니까?")){
+        				$("#deleteMemberForm").submit();
+        			}else{
+        				return false;	
+        			}//if
+        		});//deleteMemberButton
+        	});
+        </script>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="text-secondary" href="home" th:href="@{/mypage}">Home</a>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                </div>
+            </div>
+        </nav>
+         <!-- introduction -->
+        <form id="deleteMemberForm" method="post" th:action="@{/mypage/deleteMember}">
+        <section class="page-section" id="introduction">
+            <div class="container px-4 px-lg-5">
+                <h1 class="text-center mt-0">회원탈퇴</h1>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <section class="page-section bg-white" id="id">
+            		<div class="container px-4 px-lg-5">
+                		<div class="row gx-4 gx-lg-5 justify-content-center">
+                    		<div class="col-lg-8 text-center">
+                        		<h1 class="text-secondary mt-0">아이디를 입력해주세요.</h1>
+                        			<div class="form-floating mb-3">
+                                		<input class="form-control" name="memberId" id="memberId" type="text">
+                                		<label>ID</label>
+                        			</div>
+                        		<h1 class="text-secondary mt-0">'회원탈퇴확인'을 입력해주세요.</h1>
+                        			<div class="form-floating mb-3">
+                                		<input class="form-control" name="deleteCheck" id="deleteCheck" type="text">
+                                		<label>회원탈퇴확인</label>
+                        			</div>
+                        			<hr class="divider divider-light" />
+                    		</div>
+                    		<div class="col-lg-12 align-self-baseline align-items-center justify-content-center text-center">
+                    			<p class="text-white-75 mb-5"></p>
+                   				<article class="content">
+                   					<button class=" btn btn-dark btn-xl" id="checkButton" type="button">입력확인</button>
+                   					<button disabled class=" btn btn-dark btn-xl" id="deleteMemberButton" type="submit">회원탈퇴</button>
+                   				</article>
+                			</div>
+                		</div>
+            		</div>
+        			</section>
+            </div>
+        </section>
+        </form>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/guest/js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

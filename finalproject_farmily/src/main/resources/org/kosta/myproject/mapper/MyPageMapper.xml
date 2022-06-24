@@ -6,4 +6,18 @@
 		set password=#{password}, name=#{name}, tel=#{tel}, region=#{region}
 		where id=#{id} and enabled=#{enabled}
 	</update>
+	<select id="findMemberByIdAndPassword" parameterType="Map" resultType="int">
+		select count(*) 
+		from farmily_member
+		where id=#{memberId} and password=#{memberPassword}
+	</select>
+	<update id="deleteMember" parameterType="string">
+		update farmily_member
+		set enabled=0
+		where id=#{memberId}
+	</update>
+	<delete id="deleteRole" parameterType="string">
+		delete from farmily_authorities
+		where username=#{memberId}
+	</delete>
 </mapper>

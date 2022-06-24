@@ -1,14 +1,20 @@
 package org.kosta.myproject.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.kosta.myproject.service.MemberService;
 import org.kosta.myproject.service.MyPageService;
 import org.kosta.myproject.vo.MemberVO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.RequiredArgsConstructor;
@@ -41,8 +47,31 @@ public class MyPageController {
 		return new ModelAndView("mypage/updateResult", "memberVO", memberVO);
 	}
 	
-	@RequestMapping("mypage/deleteMember")
-	public void deleteMember(@AuthenticationPrincipal MemberVO memberVO) {
-		System.out.println(memberVO.getId());
+	@RequestMapping("mypage/deleteMemberForm")
+	public String deleteMemberForm(@AuthenticationPrincipal MemberVO memberVO) {
+		return "mypage/deleteMemberForm";
+	}
+	
+	@PostMapping("mypage/deleteCheck")
+	@ResponseBody
+	public String deleteMemberForm(@AuthenticationPrincipal MemberVO memberVO, String memberId, String deleteCheck) {
+		boolean isCheched = mypageService.deleteCheck(memberVO, memberId, deleteCheck);
+		if(isCheched)
+			return "ok";
+		else
+			return "fail";
+	}
+	
+	@PostMapping("mypage/deleteMember")
+	@Transactional
+	public String deleteMember(String memberId, HttpServletRequest request) {
+		mypageService.deleteMember(memberId);
+		mypageService.deleteRole(memberId);
+		
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		SecurityContextHolder.getContext().setAuthentication(null);
+		
+		return "redirect:/";
 	}
 }
