@@ -12,7 +12,7 @@
 		select count(*) from farmily_member where id=#{id}
 	</select>
 	<insert id="registerRole" parameterType="org.kosta.myproject.vo.Authority">
-		insert into farmily_authorities(username,authority) values(#{username},#{authority})
+		insert into farmily_authorities(username,authority) values(#{memberVO.id},#{authority})
 	</insert>
 		<!-- Spring Security에서 로그인 인증시 사용 : 
 	      사용가능한(enabled 1) 계정일 경우만 조회. 
@@ -47,4 +47,28 @@
 		FROM	farmily_authorities
 		WHERE	username=#{username}
 	</select>
+	<!-- 승인대기자 목록 -->
+	<resultMap type="org.kosta.myproject.vo.MemberVO" id="MemberResultMap">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="tel" property="tel"/>
+		<result column="region" property="region"/>
+	</resultMap>
+	<select id="findAllWaitingMember" resultMap="MemberResultMap">
+		select fm.id, fm.name, fm.tel, fm.region
+		from farmily_authorities fa
+		inner join farmily_member fm
+		on fa.username = fm.id
+		and fa.authority = 'ROLE_WAIT'
+	</select>
+	<!-- adminController -->
+	<insert id="grantAdminMember" parameterType="string">
+		insert into farmily_authorities(username,authority) 
+		values(#{id}, 'ROLE_ADMIN')
+	</insert>
+	<delete id="deleteWaitingMember" parameterType="string">
+		delete from farmily_authorities
+		where authority = 'ROLE_WAIT'
+		and username = #{id}
+	</delete>
 </mapper>

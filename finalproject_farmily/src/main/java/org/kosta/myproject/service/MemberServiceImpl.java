@@ -31,7 +31,19 @@ public class MemberServiceImpl implements MemberService {
 		memberVO.setPassword(encodedPwd);
 		memberMapper.registerMember(memberVO);
 		// 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
-		Authority authority = new Authority(memberVO.getId(), "ROLE_MEMBER");
+		Authority authority = new Authority(memberVO, "ROLE_MEMBER");
+		memberMapper.registerRole(authority);
+	}
+	
+	@Transactional
+	@Override
+	public void registerAdminMember(MemberVO memberVO) {
+		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
+		String encodedPwd = passwordEncoder.encode(memberVO.getPassword());
+		memberVO.setPassword(encodedPwd);
+		memberMapper.registerMember(memberVO);
+		// 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
+		Authority authority = new Authority(memberVO, "ROLE_WAIT");
 		memberMapper.registerRole(authority);
 	}
 
@@ -73,4 +85,22 @@ public class MemberServiceImpl implements MemberService {
 	public List<Authority> findAuthorityByUsername(String username) {
 		return memberMapper.findAuthorityByUsername(username);
 	}
+
+	@Override
+	public List<MemberVO> findAllWaitingMember() {
+		List<MemberVO> list = memberMapper.findAllWaitingMember();
+		return list;
+	}
+
+	@Override
+	public void grantAdminMember(String id) {
+		memberMapper.grantAdminMember(id);
+	}
+
+	@Override
+	public void deleteWaitingMember(String id) {
+		// TODO Auto-generated method stub
+		memberMapper.deleteWaitingMember(id);
+	}
+
 }

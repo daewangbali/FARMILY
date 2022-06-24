@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<div layout:fragment="main" style="height: 700px;">
+<div layout:fragment="main" >
 	<br>
 	<br>
 	<br>
@@ -22,14 +22,14 @@
 					type="hidden" name="region" value=""></td>
 			</tr>
 			<tr>
-				<td><h1 th:text="${param.title}"></h1>제목</td>
+				<td><h1 th:text="${boardVO.title}"></h1></td>
 			</tr>
 			<tr>
-				<td><a th:href>다운받기</a></td>
+				<td><img th:src="@{${boardVO.filepath}}" /></td>
 			</tr>
 			<tr>
 				<td><textarea rows="10" class="form-control" name="content"
-						placeholder="본문내용" required="required"></textarea></td>
+						placeholder="본문내용" required="required" th:text="${boardVO.content}" ></textarea></td>
 			</tr>
 
 		</table>

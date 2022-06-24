@@ -1,17 +1,14 @@
 --farmily_file 테이블 drop하고 다시 생성
 drop table farmily_file
 create table farmily_file(
-	id number primary key,
-	title varchar2(100) not null,
-	content varchar2(300) not null,
-	filename varchar2(150) not null,
+	filename varchar2(150) primary key,
 	filepath varchar2(300) not null,
 	board_no number not null,
 	CONSTRAINT fk_farmily_file foreign key(board_no) references farmily_board(board_no)  --외래키 지정문
 )
 
-
-select * from farmily_board 
+select * from farmily_board
+ 
 --BOARD_NO, TITLE, CONTENT, SELECT_CATEGORI, BOARD_CATEGORI, REGION, CREATED_DATE, ID
 
 select * from farmily_member 
@@ -43,3 +40,12 @@ VALUES (seq_farmily_board.nextval,'네번째 글','농촌에서 일해보고 싶
 INSERT INTO FARMILY_BOARD(BOARD_NO, TITLE, CONTENT, SELECT_CATEGORI, BOARD_CATEGORI, REGION, CREATED_DATE, ID)
 VALUES (seq_farmily_board.nextval,'네번째 글','농촌에서 일해보고 싶어요','자유게시판','농촌활동','서울',sysdate,'ZOO');
 
+--글 상세보기
+select b.board_no, b.title, b.content, b.created_date, b.id, f.filename, f.filepath 
+from farmily_board b
+inner join farmily_file f on b.id=f.id
+where b.board_no=47
+		
+select * from farmily_file
+INSERT INTO FARMILY_file(ID,TITLE,CONTENT,FILENAME,FILEPATH,BOARD_NO)
+VALUES ('hy67800','title','content',02615,00654,47);

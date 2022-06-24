@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Authority implements Serializable {
 	private static final long serialVersionUID = 5188280555844223102L;
-	private String username;
+	//private String username;
+	private MemberVO memberVO;
 	private String authority;
 
 }

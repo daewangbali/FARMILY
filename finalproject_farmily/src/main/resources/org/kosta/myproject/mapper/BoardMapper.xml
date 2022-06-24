@@ -4,10 +4,12 @@
 	<sql id="selectBoard">
  		select board_no,title,content,select_categori,board_categori,region,created_date,id from farmily_board
  	</sql>
-	<insert id="registerBoard" parameterType="org.kosta.myproject.vo.BoardVO">
-		insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id)
-		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id})
+	<insert id="registerBoardBoard" parameterType="org.kosta.myproject.vo.BoardVO">
+		insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id,filename,filepath)
+		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id},#{filename},#{filepath})
 	</insert>
+	
+	
 	<select id="findAllBoardList" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> order by board_no desc
 	</select>
@@ -32,4 +34,9 @@
 		<include refid="selectBoard"/> where id=#{value} order by board_no desc
 	</select>
 	
+	<select id="boardView" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		select board_no,title,content,select_categori,board_categori,region,created_date,id, filename, filepath 
+		from farmily_board 
+		where board_no=#{value}
+	</select>
 </mapper>

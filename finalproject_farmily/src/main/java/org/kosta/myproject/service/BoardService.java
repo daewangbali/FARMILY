@@ -3,13 +3,11 @@ package org.kosta.myproject.service;
 import java.util.List;
 
 import org.kosta.myproject.vo.BoardVO;
-import org.kosta.myproject.vo.FileVO;
-import org.springframework.web.multipart.MultipartFile;
 
 public interface BoardService {
 	//게시물 작성
-	void registerBoard(BoardVO bvo, FileVO fileVO, MultipartFile file) throws Exception;
-		
+	void registerBoard(BoardVO bvo);
+
 	//전체 게시물 리스트
 	List<BoardVO> findAllBoardList();
 		
@@ -25,5 +23,6 @@ public interface BoardService {
 	//내가 쓴 게시물 조회
 	List<BoardVO> findMyPostListById(String id);
 			
-	
+	//게시글 상세페이지
+	BoardVO boardView(String boardNo);
 }

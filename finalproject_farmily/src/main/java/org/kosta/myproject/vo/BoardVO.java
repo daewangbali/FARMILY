@@ -16,4 +16,6 @@ public class BoardVO {
 	private String region;
 	private String createdDate;
 	private String id;
+	private String filename;
+	private String filepath;
 }
