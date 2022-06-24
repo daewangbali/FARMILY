@@ -27,8 +27,20 @@ create table farmily_board(
 	id varchar2(100) not null,
 	CONSTRAINT fk_farmily_board foreign key(id) references farmily_member (id)  --외래키 지정문
 )
-select * from farmily_board where id='java'
 
+
+select * from FARMILY_BOARD
+
+
+--file 테이블 없애고 board에 추가함
+ALTER TABLE farmily_board ADD filename varchar2(150) NULL;
+ALTER TABLE farmily_board ADD filepath varchar2(300) NULL;
+drop table farmily_file
+---
+
+
+
+select * from farmily_board
 insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id)
 values(seq_farmily_board.nextval,'전남','test','농촌활동','일일알바','전남',sysdate,'java')
 

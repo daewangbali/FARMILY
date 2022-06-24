@@ -22,4 +22,6 @@ public interface BoardService {
 			
 	//게시글 상세페이지
 	BoardVO boardView(String boardNo);
+	
+	List<BoardVO> findMyPostListById(String id);
 }
