@@ -10,6 +10,7 @@ public interface BoardService {
 
 	//전체 게시물 리스트
 	List<BoardVO> findAllBoardList();
+	//Page<BoardVO> findAllBoardList(Pageable pageable);
 		
 	//지역별 게시물 리스트
 	List<BoardVO> findBoardListByRegion(String region);
@@ -28,6 +29,15 @@ public interface BoardService {
 	
 	//마이페이지
 	List<BoardVO> findMyPostListById(String id);
+
+	//게시글 업데이트
+	void updateBoard(BoardVO bvo, String boardNo);
+
+	//게시글 삭제
+	void deletePost(String id);
+
+
+	
 
 	
 }

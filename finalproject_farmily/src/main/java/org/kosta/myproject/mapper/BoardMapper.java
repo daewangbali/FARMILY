@@ -14,7 +14,7 @@ public interface BoardMapper {
 	
 	//전체 게시물 리스트
 	List<BoardVO> findAllBoardList();
-	
+	//Page<BoardVO> findAllBoardList(Pageable pageable);
 	//지역별 게시물 리스트
 	List<BoardVO> findBoardListByRegion(String region);
 	
@@ -32,4 +32,11 @@ public interface BoardMapper {
 
 	// 내가 쓴 게시물 조회
 	List<BoardVO> findMyPostListById(String id);
+	
+	//게시물 업데이트
+	void updateBoardBoard(BoardVO bvo);
+	
+	//게시글 삭제
+	void deletePost(String id);
+	
 }

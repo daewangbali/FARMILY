@@ -3,14 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<div layout:fragment="main" >
+<div layout:fragment="main" style="height: 700px;">
 	<br>
 	<br>
 	<br>
 	<br>
-	
-	<form method="get" enctype="multipart/form-data">
-		<span th:name="boardCategori" th:text="${param.boardCategori}"></span>
+	<form method="post" th:action="@{/updatePost}" enctype="multipart/form-data">
+		<span th:name="boardCategori" th:text="${boardVO.boardCategori}"></span>
 		<table class="table">
 			
 			<tr>
@@ -22,7 +21,8 @@
 					type="hidden" name="region" value=""></td>
 			</tr>
 			<tr>
-				<td><h1 th:text="${boardVO.title}"></h1></td>
+				<td><input type="text" name="title" 
+					required="required" size="100" th:value="${boardVO.title}"></td>
 			</tr>
 			<tr>
 				<td><img th:src="@{${boardVO.filepath}}" /></td>
@@ -38,19 +38,12 @@
 			<input type="hidden" name="boardCategori"
 				value="${param.boardCategori}" th:value="${param.boardCategori}">
 			
-			
-			<br><br>
-			<button type="button" class="btn btn-success" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/updatePostForm/{boardNo} (boardNo=${boardVO.boardNo})}'|">수정하기</button>
-			<button type="button" class="btn btn-light" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/deletePost(boardNo=${boardVO.boardNo})}'|">삭제하기</button>
-		
 			<br>
-			<button class="btn btn-success">수정하기</button>
-			
-			
+			<button type="submit" class="btn btn-success">확인</button>
+			<button type="reset" class="btn btn-light">취소</button>
 		</div>
 	</form>
-	
-	
-	
-</div>	
+
+
+</div>
 </html>

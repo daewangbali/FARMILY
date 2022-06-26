@@ -19,11 +19,25 @@ public class BoardServiceImpl implements BoardService{
 	public void registerBoard(BoardVO bvo){
 		boardMapper.registerBoardBoard(bvo);
 	}
+	
+	//게시물 수정
+	@Override
+	public void updateBoard(BoardVO bvo, String boardNo){
+		boardMapper.updateBoardBoard(bvo);
+	}
+	
+	//게시물 삭제
+	@Override
+	public void deletePost(String boardNo){
+		boardMapper.deletePost(boardNo);
+	}
+		
 	//전체 게시물 리스트
 	@Override
 	public List<BoardVO> findAllBoardList() {
 		return boardMapper.findAllBoardList();
 	}
+	
 	//지역별 게시물 리스트
 	@Override
 	public List<BoardVO> findBoardListByRegion(String region) {

@@ -6,12 +6,12 @@ import java.util.UUID;
 
 import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.vo.BoardVO;
-import org.kosta.myproject.vo.FileVO;
 import org.kosta.myproject.vo.MemberVO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -80,6 +80,13 @@ public class BoardController {
 		model.addAttribute("boardVO", boardVO);
 		return "board/boardView";
 	}
+	
+	@GetMapping("deletePost")
+	public String deletePost(String boardNo) {
+		boardService.deletePost(boardNo);
+		return "index";
+		
+	}
 
 	@RequestMapping("mypage")
 	public String mypage() {
@@ -98,6 +105,22 @@ public class BoardController {
 		List<BoardVO> list = boardService.findMyPostListById(membervo.getId());
 		model.addAttribute("boardList", list);
 		return "mypage/findMyPostListById";
+	}
+	
+	@GetMapping("updatePostForm/{boardNo}")
+	public String updatePostForm(@PathVariable("boardNo") String boardNo, Model model) {
+		BoardVO boardVO = boardService.boardView(boardNo);
+		model.addAttribute("boardVO", boardVO);
+		return "board/updatePostForm";
+	}
+
+	@PostMapping("updatePost")
+	public String updatePost(@AuthenticationPrincipal MemberVO membervo, BoardVO bvo, String boardCategori,
+			Model model, MultipartFile file, String boardNo) throws Exception {
+		bvo.setId(membervo.getId());
+	
+		boardService.updateBoard(bvo, boardNo);
+		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
 	}
 
 }
