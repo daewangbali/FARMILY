@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>게시글 삭제시 띄우는 메세지</title>
+</head>
+
+<script th:inline="javascript">
+
+	/*![CDATA[*/
+	var message = [[${message}]];
+	alert(message);
+	
+	location.replace([[${searchUrl}]]);
+	
+	/*]]>*/
+</script>
+<body>
+</body>
+</html>

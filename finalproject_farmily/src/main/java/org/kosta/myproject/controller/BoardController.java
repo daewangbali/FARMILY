@@ -82,9 +82,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("deletePost")
-	public String deletePost(String boardNo) {
+	public String deletePost(String boardNo, Model model) {
 		boardService.deletePost(boardNo);
-		return "index";
+		model.addAttribute("message", "게시글이 삭제되었습니다.");
+		model.addAttribute("searchUrl", "http://localhost:7777/#");
+		return "delete-message";
 		
 	}
 
