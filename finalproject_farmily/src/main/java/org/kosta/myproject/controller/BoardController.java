@@ -48,7 +48,13 @@ public class BoardController {
 
 	@GetMapping("registerPostForm")
 	public String registerPostForm(String boardCategori) {
-		return "board/registerPostForm";
+		String viewName = null;
+		if(boardCategori.equals("농촌활동")) {
+			viewName = "board/registerFarmPostForm";
+		}else {
+			viewName = "board/registerPostForm";
+		}
+		return viewName;
 	}
 
 	@PostMapping("registerPost")

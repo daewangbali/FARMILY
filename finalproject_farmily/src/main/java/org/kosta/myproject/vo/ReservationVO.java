@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReservationVO {
 	private int reservationNo;
-	private String month;
-	private String day;
+	private String reservationDate;
 	private int boardNo;
 	private String id;
 }

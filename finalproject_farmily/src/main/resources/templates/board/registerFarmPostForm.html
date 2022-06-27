@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div layout:fragment="main" >
+<script type="text/javascript" th:inline="javascript" >
+let plusId = 1;
+//minus 버튼 클릭시
+function clickMinus(divId){
+	divId.remove();
+	console.log(divId);
+	
+}
+$(function() {
+	
+	let available = "available";
+	let dateArray = new Set();
+	let divId = "divId";
+	let btnClickCheck = 0;
+	// 플러스 버튼 클릭시 input tag 추가
+	$("#plusBtn1").click(function(){
+	     
+	      plusId++;
+	      available = "available" + plusId;
+	      divId = "divId" + plusId;
+	      $("#datePlusMiuns").append("<div id='"+divId+"'style='padding-left: 105px'><input type='date' id='"+available+"' required='required' size='70' style='margin-bottom: 5px'> <i onclick='clickMinus("+divId+")' style='padding-left: 5px;' class='fa-solid fa-minus'></i></div>");
+	  });
+	
+	//날짜 확인 버튼 클릭시
+	$("#dateCheckBtn").click(function() {
+		if($("#available1").val()==""){
+			alert("날짜를 선택해주세요");
+			return false;
+		}
+		$("#ptag").hide();
+		let j = 0;
+		for(let i=1;i<=plusId;i++){
+			if($("#available"+i)!=null){
+				dateArray.add($("#available"+i).val());
+				j++;
+			}
+		}
+		$("#dateArray").val(Array.from(dateArray));
+		$("#availabledateCheck").hide();
+		$("#dateCheckSpan").hide();
+		var arr = Array.from(dateArray);
+		$("#dateCheckDone").append("<div> <span th:text='예약가능날짜'></span> &nbsp"+arr+"</div>");
+		btnClickCheck = 1;
+	});
+	
+	//날짜 다시 선택 버튼 클릭시
+	$("#dateReCheckBtn").click(function() {
+		btnClickCheck = 0;
+		dateArray.clear();
+		for(let i=1;i<=plusId;i++){
+			$("#available"+i).val('');
+		}
+		$("#datePlusMiuns").empty();
+		$("#dateCheckDone").empty();
+		$("#availabledateCheck").show();
+		$("#dateCheckSpan").show();
+		
+	});
+	
+	$("#farmPostForm").submit(function() {
+		let validation = true;
+		if(btnClickCheck==0){
+			alert("예약 가능 날짜 확인 후 확인 완료 버튼을 눌러주세요");
+			return validation = false;
+		}
+	});
+	
+});
+</script>
+	<br><br><br><br>
+	<form id="farmPostForm" method="post" th:action="@{/registerFarmPost}"  enctype="multipart/form-data">
+		<input type="hidden" id="dateArray" name="dateArray" >
+		<span th:text="${param.boardCategori}"></span>
+		<table class="table">
+			<tr>
+				<td align="left">
+					<span th:text="농촌활동지역"></span> &nbsp 
+					<select name="region" id="memberRegion" style="width: 100px" required="required">
+						<option value="">-- 지역 --</option>
+						<option value="서울">서울</option>
+						<option value="경기">경기</option>
+						<option value="강원">강원</option>
+						<option value="인천">인천</option>
+						<option value="대전">대전</option>
+						<option value="대구">대구</option>
+						<option value="울산">울산</option>
+						<option value="부산">부산</option>
+						<option value="광주">광주</option>
+						<option value="충남">충남</option>
+						<option value="충북">충북</option>
+						<option value="전남">전남</option>
+						<option value="전북">전북</option>
+						<option value="경남">경남</option>
+						<option value="경북">경북</option>
+						<option value="제주">제주</option>
+				</select></td>
+			</tr>
+			<tr align="left">
+				<td> 
+					<div id="availabledateCheck">
+					<span th:text="예약가능날짜"></span> &nbsp
+					<input class='datePlus' type="date" id="available1" name="" required="required" size="70" style="margin-bottom: 5px"><i id="plusBtn1" style="padding-left: 5px;" class="fa-solid fa-plus"></i>
+					<span id="datePlusMiuns"> 
+					</span>
+					</div>
+					<div id="ptag" style="padding: 5px">선택한 날짜를 확인한 후 확인 버튼을 눌러주세요</div>
+					
+					<span id="dateCheckSpan">
+					<span></span>
+					<button type="button" id="dateCheckBtn" class="btn btn-outline-secondary" style="padding: 1px;margin-bottom: 5px;font-size: 14px;width: 75px"> 확인 완료 </button>
+					</span>
+					<button type='button' id='dateReCheckBtn' class="btn btn-outline-secondary" style="padding: 1px;margin-bottom: 5px;font-size: 14px;width: 110px">날짜 다시 선택</button>
+					<div id="dateCheckDone"> 
+					</div>
+				</td>
+			</tr>
+			<tr align="left">
+				<td>
+				<select name="selectCategori" required="required" style="height: 30px">
+					<option value="">-- 카테고리 --</option>
+					<option value="일일알바" >일일알바</option>
+					<option value="체험활동" >체험활동</option>
+				</select>
+				<input type="text" name="title" placeholder="글제목"required="required" size="85"></td>
+			</tr>
+
+			<tr>
+				<td><textarea rows="10" class="form-control" name="content"
+						placeholder="본문내용" required="required"></textarea></td>
+			</tr>
+			<tr>
+				<td align="left"><input type="file" name="file"></td>
+			</tr>
+		</table>
+		<div class="text-center">
+			<input type="hidden" name="boardCategori" value="${param.boardCategori}" th:value="${param.boardCategori}">
+			<button type="submit" id="submitBtn" class="btn btn-success">확인</button>
+			<button type="reset" class="btn btn-light">취소</button>
+		</div>
+	</form>
+<br><br>
+</div>
+
+</html>

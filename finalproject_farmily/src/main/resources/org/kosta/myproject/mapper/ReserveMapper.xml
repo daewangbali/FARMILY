@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.myproject.mapper.ReserveMapper">
+	<insert id="availableReservation" parameterType="org.kosta.myproject.vo.ReservationVO">
+		insert into farmily_reservation(reservation_no,revervation_date,board_no) values(seq_farmily_reservation.nextval,#{reservationDate},#{boardNo})
+	</insert>
+	<select id="getBoardNo" parameterType="string" resultType="int">
+		select max(board_no) from farmily_board where id = #{id}
+	</select>
+</mapper>
