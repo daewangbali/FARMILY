@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.MemberVO;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +26,9 @@ public class BoardController {
 	private final BoardService boardService;
 
 	@RequestMapping("guest/boardListByBoardCategori")
-	public String findBoardListByBoardCategori(String boardCategori, Model model) {
-		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
-		model.addAttribute("boardList", list);
+	public String findBoardListByBoardCategori(String boardCategori, Model model, @PageableDefault(page=0, size = 10, sort = "boardNo" ) Pageable pageable) {
+		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori, pageable);
+		model.addAttribute("boardList", list); 
 		return "board/board-categori-list";
 	}
 
@@ -109,19 +111,18 @@ public class BoardController {
 		return "mypage/findMyPostListById";
 	}
 	
-	@GetMapping("updatePostForm/{boardNo}")
-	public String updatePostForm(@PathVariable("boardNo") String boardNo, Model model) {
+	@GetMapping("updatePostForm")
+	public String updatePostForm( String boardNo, Model model) {
 		BoardVO boardVO = boardService.boardView(boardNo);
 		model.addAttribute("boardVO", boardVO);
 		return "board/updatePostForm";
 	}
 
 	@PostMapping("updatePost")
-	public String updatePost(@AuthenticationPrincipal MemberVO membervo, BoardVO bvo, String boardCategori,
-			Model model, MultipartFile file, String boardNo) throws Exception {
-		bvo.setId(membervo.getId());
-	
-		boardService.updateBoard(bvo, boardNo);
+	public String updatePost(@AuthenticationPrincipal MemberVO membervo, BoardVO boardVO, String boardCategori,
+			Model model, MultipartFile file, int boardNo) throws Exception {
+		boardVO.setBoardNo(boardNo);
+		boardService.updateBoard(boardVO);//이 boardVO안에는 title, content, boardNo만 들어있음
 		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
 	}
 

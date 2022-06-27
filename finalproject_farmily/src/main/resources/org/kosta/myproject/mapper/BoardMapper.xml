@@ -15,7 +15,7 @@
  	</delete>
 	<update id="updateBoardBoard" parameterType="org.kosta.myproject.vo.BoardVO">
 		update farmily_board set title=#{title}, content=#{content}
- 		where board_no=#{board_no}
+ 		where board_no=#{boardNo}
 	</update>
 	
 	

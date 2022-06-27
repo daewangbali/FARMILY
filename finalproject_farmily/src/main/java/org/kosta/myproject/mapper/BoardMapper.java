@@ -34,7 +34,7 @@ public interface BoardMapper {
 	List<BoardVO> findMyPostListById(String id);
 	
 	//게시물 업데이트
-	void updateBoardBoard(BoardVO bvo);
+	void updateBoardBoard(BoardVO boardVO);
 	
 	//게시글 삭제
 	void deletePost(String id);
