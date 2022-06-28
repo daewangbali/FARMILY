@@ -1,5 +1,10 @@
 --관리자 회원가입
+select * from FARMILY_AUTHORITIES
+select * from FARMILY_MEMBER
+insert into farmily_member(id,password,name,tel,region,enabled) values('master','1234','마스터','11','전남',1)
 
+insert into farmily_authorities(username, authority)
+values('qwer', 'ROLE_MASTER')
 
 
 
@@ -11,6 +16,7 @@ create table farmily_member(
 	region varchar2(100) not null,
 	enabled number default 1
 );
+
 insert into farmily_member(id,password,name,tel,region,enabled) values('java','a','감자깡','11','전남',1)
 select * from farmily_member where id='java'
 
