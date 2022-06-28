@@ -83,9 +83,10 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardView")
-	public String boardView(String boardNo, Model model) throws Exception {
+	public String boardView(@AuthenticationPrincipal MemberVO membervo,String boardNo, Model model) throws Exception {
 		BoardVO boardVO = boardService.boardView(boardNo);
 		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("myID", membervo.getId());
 		return "board/boardView";
 	}
 	
