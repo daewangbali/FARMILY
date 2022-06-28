@@ -10,15 +10,6 @@
 	</insert>
 	
 	
-	<delete id="deletePost" parameterType="string">
- 		delete from farmily_board where board_no=#{board_no}
- 	</delete>
-	<update id="updateBoardBoard" parameterType="org.kosta.myproject.vo.BoardVO">
-		update farmily_board set title=#{title}, content=#{content}
- 		where board_no=#{boardNo}
-	</update>
-	
-	
 	<select id="findAllBoardList" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> order by board_no desc
 	</select>
@@ -34,7 +25,13 @@
 	<select id="findBoardFarmingListByBoardCategori" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> where board_categori = '농촌활동' order by board_no desc
 	</select>
-
+	<update id="updateBoard">
+		update
+	</update>
+	
+	<delete id="deleteBoard">
+		delete
+	</delete>
 	<select id="findMyPostListById" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> where id=#{id} order by board_no desc
 	</select>	
@@ -43,4 +40,11 @@
 		from farmily_board 
 		where board_no=#{value}
 	</select>
+	<insert id="registerJjim" parameterType="org.kosta.myproject.vo.JjimVO">
+	insert into farmily_jjim(board_no,id) values(#{boardNo},#{id});
+	</insert>
+	<select id="findJjim" parameterType="org.kosta.myproject.vo.JjimVO" resultType="String">
+		select count(*) from farmily_jjim where id=#{id} and board_no = #{boardNo}
+	</select>
+	
 </mapper>

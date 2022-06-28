@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.kosta.myproject.mapper.BoardMapper;
 import org.kosta.myproject.vo.BoardVO;
+import org.kosta.myproject.vo.JjimVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,25 +20,11 @@ public class BoardServiceImpl implements BoardService{
 	public void registerBoard(BoardVO bvo){
 		boardMapper.registerBoardBoard(bvo);
 	}
-	
-	//게시물 수정
-	@Override
-	public void updateBoard(BoardVO boardVO){
-		boardMapper.updateBoardBoard(boardVO);
-	}
-	
-	//게시물 삭제
-	@Override
-	public void deletePost(String boardNo){
-		boardMapper.deletePost(boardNo);
-	}
-		
 	//전체 게시물 리스트
 	@Override
 	public List<BoardVO> findAllBoardList() {
 		return boardMapper.findAllBoardList();
 	}
-	
 	//지역별 게시물 리스트
 	@Override
 	public List<BoardVO> findBoardListByRegion(String region) {
@@ -46,7 +32,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	//게시판 카테고리 리스트(농활 or 장터)
 	@Override
-	public List<BoardVO> findBoardListByBoardCategori(String boardCategori, Pageable pageable) {
+	public List<BoardVO> findBoardListByBoardCategori(String boardCategori) {
 		return boardMapper.findBoardListByBoardCategori(boardCategori);
 	}
 	//게시물 카테고리 리스트(알바 or 체험 or 중고거래 or 자유)
@@ -70,5 +56,15 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> findMyPostListById(String id) {
 		return boardMapper.findMyPostListById(id);
 	}
+	@Override
+	public void registerJjim(JjimVO jvo) {
+		boardMapper.registerJjim(jvo);	
+	}
+	@Override
+	public String findJjim(JjimVO jvo) {
+		return boardMapper.findJjim(jvo);
+	}
+
+
 
 }

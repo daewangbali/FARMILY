@@ -16,7 +16,7 @@
 			<tr>
 
 				<td th:if="${param.boardCategori=='농촌활동'}"><input type="text"
-					name="region" placeholder="지역" required="required" size="50"> 
+					name="region" placeholder="지역" required="required" size="50">
 				</td>
 				<td th:unless="${param.boardCategori=='장터'}"><input
 					type="hidden" name="region" value=""></td>
@@ -25,35 +25,50 @@
 				<td><h1 th:text="${boardVO.title}"></h1></td>
 			</tr>
 			<tr>
-				<td><h6 th:text="${boardVO.id}"></h6></td>
-			</tr>
-			<tr>
-				<td><img style="max-width: 850px" th:src="@{${boardVO.filepath}}" /></td>
+				<td><img th:src="@{${boardVO.filepath}}" /></td>
 			</tr>
 			<tr>
 				<td><textarea rows="10" class="form-control" name="content"
-						placeholder="본문내용" required="required" readonly="readonly" th:text="${boardVO.content}" ></textarea></td>
+						placeholder="본문내용" required="required" th:text="${boardVO.content}" ></textarea></td>
 			</tr>
-
+			<tr>
+			<td>
+				<th:block th:if="${jjimCheck=='0'}">
+					<img id="jjim" src="assets/img/planting.png" />
+				</th:block>
+				<th:block th:if="${jjimCheck=='1'}">
+					<img id="jjim" src="assets/img/planting2.png" />
+				</th:block>
+			</td>
+				
+			</tr>
+			
 		</table>
-	
+		<!--
+		<div style='width:30px;float: left;'>
+		 <button type="button" id="jjimForm"><img src="assets/img/planting.png" alt="" border='0' style="float: left; width:40px; height:40px;"></button> 
+		</div>
+		<a href="#" th:href="@{board/boardView}" id="Jjim"><img src="assets/img/planting.png" alt="" border='0' style="float: left; width:40px; height:40px;"></a>-->
+		
+		
 		<div class="text-center">
 			<input type="hidden" name="boardCategori"
 				value="${param.boardCategori}" th:value="${param.boardCategori}">
-	
-			<br><br>
-			<div th:if = "${boardVO.id} == ${myID}">
-			<button type="button" class="btn btn-success" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/updatePostForm(boardNo=${boardVO.boardNo})}'|">수정하기</button>
-			<button type="button" class="btn btn-light" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/deletePost(boardNo=${boardVO.boardNo})}'|">삭제하기</button>
-			</div>
 			
 			<br>
-			
-			
+			<button class="btn btn-success">수정하기</button>
+			<button class="btn btn-light">삭제하기</button>
 		</div>
 	</form>
 	
 	
 	
+	<!--
+	<h1 th:text="${board.title}">제목입니다</h1>
+	<p th:text="${board.content}">내용</p>
+	   -->
+	
+	
 </div>	
 </html>
+

@@ -66,6 +66,17 @@ create table farmily_reservation(
 	CONSTRAINT fk_reservation_board_no foreign key(board_no) references farmily_board(board_no),  --외래키 지정문
 	CONSTRAINT fk_reservation_id foreign key(id) references farmily_member (id)  --외래키 지정문
 )
+-- 예약 테이블 수정
+drop table farmily_reservation;
+
+create table farmily_reservation(
+	reservation_no number primary key,
+	revervation_date varchar2(100) not null,
+	board_no number not null,
+	id varchar2(100),
+	CONSTRAINT fk_reservation_board_no foreign key(board_no) references farmily_board(board_no),  --외래키 지정문
+	CONSTRAINT fk_reservation_id foreign key(id) references farmily_member (id)  --외래키 지정문
+)
 
 
 create table farmily_jjim(
@@ -75,7 +86,13 @@ create table farmily_jjim(
 	CONSTRAINT fk_jjim_board_no foreign key(board_no) references farmily_board(board_no),  --외래키 지정문
 	CONSTRAINT fk_jjim_id foreign key(id) references farmily_member (id)  --외래키 지정문
 )
-
+insert into farmily_jjim(board_no,id) values(2,'java2');
+select count(*) from farmily_jjim where id='java' and board_no=2
+select * from farmily_jjim
+select b.board_no,b.title,b.content,b.select_categori,b.board_categori,b.region,b.created_date,b.id,j.board_no,j.id
+from farmily_jjim j
+inner join farmily_board b on j.board_no=b.board_no
+where j.id='java' and j.board_no=2
 
 create table farmily_chat(
 	sender varchar2(100),
