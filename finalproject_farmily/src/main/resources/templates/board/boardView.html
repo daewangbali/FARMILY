@@ -16,7 +16,7 @@
 			<tr>
 
 				<td th:if="${param.boardCategori=='농촌활동'}"><input type="text"
-					name="region" placeholder="지역" required="required" size="50">
+					name="region" placeholder="지역" required="required" size="50"> 
 				</td>
 				<td th:unless="${param.boardCategori=='장터'}"><input
 					type="hidden" name="region" value=""></td>
@@ -25,11 +25,14 @@
 				<td><h1 th:text="${boardVO.title}"></h1></td>
 			</tr>
 			<tr>
+				<td><h6 th:text="${boardVO.id}"></h6></td>
+			</tr>
+			<tr>
 				<td><img style="max-width: 850px" th:src="@{${boardVO.filepath}}" /></td>
 			</tr>
 			<tr>
 				<td><textarea rows="10" class="form-control" name="content"
-						placeholder="본문내용" required="required" th:text="${boardVO.content}" ></textarea></td>
+						placeholder="본문내용" required="required" readonly="readonly" th:text="${boardVO.content}" ></textarea></td>
 			</tr>
 
 		</table>
