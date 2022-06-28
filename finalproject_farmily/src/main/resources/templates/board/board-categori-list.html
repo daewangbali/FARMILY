@@ -5,6 +5,11 @@
   layout:decorate="~{layouts/layout}"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
+
+
+  
+  
+  
   <div layout:fragment="main" style="height:700px;" >
   <br><br><br><br>
   	<table class="table table-bordered">
@@ -32,7 +37,22 @@
       </tr>
     </tbody>
   </table>
-  
+  	<br>
+  	
+  	
+  		<ul class="pagination">
+   			 <li class="page-item active"><a class="page-link" href="#">이전페이지</a></li> 
+   			 <li class="page-item "><a class="page-link" href="#">1</a></li>
+   			 <li class="page-item "><a class="page-link" href="#">2</a></li>
+   			 <li class="page-item "><a class="page-link" href="#">3</a></li>
+   			 <li class="page-item "><a class="page-link" href="#">2</a></li>
+   			 <li class="page-item "><a class="page-link" href="#">3</a></li>
+   			 <li class="page-item active"><a class="page-link" href="#">다음페이지</a></li>
+ 		 </ul>
+	
+  	
+  	
+  	
 	<button type="button" class="btn btn-secondary" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/registerPostForm (boardCategori=${param.boardCategori})}'|">글쓰기</button>
   </div>
 </html>

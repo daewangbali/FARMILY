@@ -581,6 +581,10 @@ progress {
   text-transform: uppercase;
 }
 
+.pagination {
+	justify-content : center; 
+}
+
 .blockquote {
   margin-bottom: 1rem;
   font-size: 1.25rem;

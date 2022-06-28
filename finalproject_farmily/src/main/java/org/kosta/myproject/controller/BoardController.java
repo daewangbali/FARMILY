@@ -83,6 +83,7 @@ public class BoardController {
 		String jjimCheck = boardService.findJjim(jjimVO);
 		model.addAttribute("jjimCheck",jjimCheck);
 		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("myId",membervo.getId());
 		return "board/boardView";
 	}
 

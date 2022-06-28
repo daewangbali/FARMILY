@@ -22,14 +22,22 @@
 					type="hidden" name="region" value=""></td>
 			</tr>
 			<tr>
+				<td><h6 th:text="| ${boardVO.boardCategori} / ${boardVO.selectCategori} |"></h6></td>
+			</tr>
+			<tr>
 				<td><h1 th:text="${boardVO.title}"></h1></td>
 			</tr>
 			<tr>
-				<td><img th:src="@{${boardVO.filepath}}" /></td>
+				<td align="right"><h6 th:text="|작성자 : ${boardVO.id}|"></h6><h6 th:text="|작성일 : ${boardVO.createdDate}|"></h6></td>
+			</tr>
+			
+			
+			<tr>
+				<td><img style="max-width: 850px" th:src="@{${boardVO.filepath}}" /></td>
 			</tr>
 			<tr>
 				<td><textarea rows="10" class="form-control" name="content"
-						placeholder="본문내용" required="required" th:text="${boardVO.content}" ></textarea></td>
+						placeholder="본문내용" required="required" readonly="readonly" th:text="${boardVO.content}" ></textarea></td>
 			</tr>
 			<tr>
 			<td>
@@ -55,10 +63,12 @@
 			<input type="hidden" name="boardCategori"
 				value="${param.boardCategori}" th:value="${param.boardCategori}">
 			
-			<br>
-			<button class="btn btn-success">수정하기</button>
-			<button class="btn btn-light">삭제하기</button>
-		</div>
+			<br><br>
+			<div th:if = "${boardVO.id} == ${myID}">
+			<button type="button" class="btn btn-success" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/updatePostForm(boardNo=${boardVO.boardNo})}'|">수정하기</button>
+			<button type="button" class="btn btn-light" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/deletePost(boardNo=${boardVO.boardNo})}'|">삭제하기</button>
+			</div>
+		</div>	
 	</form>
 	
 	
