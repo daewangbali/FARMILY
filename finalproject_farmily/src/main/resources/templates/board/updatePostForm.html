@@ -10,7 +10,6 @@
 	<br>
 	<form method="post" th:action="@{/updatePost}" enctype="multipart/form-data">
 		<span th:name="boardCategori" th:text="${boardVO.boardCategori}"></span>
-		
 		<table class="table">
 			
 			<tr>
@@ -25,7 +24,9 @@
 				<td><input type="text" name="title" 
 					required="required" size="100" th:value="${boardVO.title}"></td>
 			</tr>
-			
+			<tr>
+				<td><img th:src="@{${boardVO.filepath}}" /></td>
+			</tr>
 			<tr>
 				<td><textarea rows="10" class="form-control" name="content"
 						placeholder="본문내용" required="required" th:text="${boardVO.content}"  >{boardVO.content}</textarea></td>
@@ -37,8 +38,8 @@
 			<input type="hidden" name="boardCategori"
 				value="${param.boardCategori}" th:value="${param.boardCategori}">
 			<input type="hidden" name="boardNo" th:value="${boardVO.boardNo}">
-			<br>
 			
+			<br>
 			<button type="submit" class="btn btn-success">확인</button>
 			<button type="reset" class="btn btn-light">취소</button>
 		</div>

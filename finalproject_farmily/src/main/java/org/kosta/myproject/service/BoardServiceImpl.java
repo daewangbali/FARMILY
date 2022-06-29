@@ -6,6 +6,7 @@ import org.kosta.myproject.mapper.BoardMapper;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	//게시판 카테고리 리스트(농활 or 장터)
 	@Override
-	public List<BoardVO> findBoardListByBoardCategori(String boardCategori) {
+	public List<BoardVO> findBoardListByBoardCategori(String boardCategori, Pageable pageable) {
 		return boardMapper.findBoardListByBoardCategori(boardCategori);
 	}
 	//게시물 카테고리 리스트(알바 or 체험 or 중고거래 or 자유)
@@ -63,6 +64,18 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public String findJjim(JjimVO jvo) {
 		return boardMapper.findJjim(jvo);
+	}
+	
+	//게시물 수정
+	@Override
+	public void updateBoard(BoardVO boardVO){
+		boardMapper.updateBoardBoard(boardVO);
+	}
+
+	//게시물 삭제
+	@Override
+	public void deletePost(String boardNo){
+		boardMapper.deletePost(boardNo);
 	}
 
 
