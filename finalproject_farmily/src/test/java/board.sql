@@ -49,3 +49,11 @@ where b.board_no=47
 select * from farmily_file
 INSERT INTO FARMILY_file(ID,TITLE,CONTENT,FILENAME,FILEPATH,BOARD_NO)
 VALUES ('hy67800','title','content',02615,00654,47);
+
+--paging
+select rnum, board_no,title,content,select_categori,board_categori,region,created_date,id 
+from(select ROW_NUMBER() OVER(ORDER BY board_no DESC) as rnum, board_no,title,content,select_categori,board_categori,region,created_date,id 
+from farmily_board
+where board_categori = '장터' order by board_no desc
+)
+WHERE rnum between 1 and 5

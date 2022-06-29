@@ -64,9 +64,9 @@
 				value="${param.boardCategori}" th:value="${param.boardCategori}">
 			
 			<br><br>
-			<div th:if = "${boardVO.id} == ${myID}">
-			<button type="button" class="btn btn-success" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/updatePostForm(boardNo=${boardVO.boardNo})}'|">수정하기</button>
-			<button type="button" class="btn btn-light" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/deletePost(boardNo=${boardVO.boardNo})}'|">삭제하기</button>
+			<div th:if = "${boardVO.id} == ${myId}">
+				<button type="button" class="btn btn-success" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/updatePostForm(boardNo=${boardVO.boardNo})}'|">수정하기</button>
+				<button type="button" class="btn btn-light" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/deletePost(boardNo=${boardVO.boardNo})}'|">삭제하기</button>
 			</div>
 		</div>	
 	</form>
