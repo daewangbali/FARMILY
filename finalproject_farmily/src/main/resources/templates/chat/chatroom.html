@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>hello</title>
+</head>
+
+
+<body>
+	<div class="container">
+
+		<div class="col-6">
+			<label><b>채팅방</b></label>
+		</div>
+
+		<div>
+			<div id="msgArea" class="col"></div>
+
+			<div class="col-6">
+				<div class="input-group mb-3">
+					<input type="text" id="msg" class="form-control"
+						aria-label="Recipient's username" aria-describedby="button-addon2">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button"
+							id="button-send">전송</button>
+					</div>
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button"
+							id="disconn">연결종료</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script th:inline="javascript">
+            $(document).ready(function(){
+
+            let username = [[${name}]];
+            //현재 로그인한 사용자의 이름
+
+            let websocket = new WebSocket("ws://localhost:7777/ws/chat");
+			//client 접속시 생성되는 websocket 객체
+			websocket.onmessage = onMessage;
+    		//websocket이 message를 보낼떄
+            websocket.onopen = onOpen;
+    		//websocket이 최초 연결되었을때
+            websocket.onclose = onClose;
+    		//websocket 연결이 끊어졌을때
+    			
+            $("#disconn").on("click", (e) => {
+            	var str = username + "님께서 퇴장하셨습니다.";
+                websocket.send(str);
+                close();
+            });
+            
+            $("#conn").on("click", (e)=>{
+            	open();
+            });
+
+            $("#button-send").on("click", (e) => {
+            	data username sessionId
+                send();
+            });
+	
+            function send(){
+				//msg에 입력된 input 값을 저장
+                let msg = document.getElementById("msg");
+				
+				//msg value를 websocket.send(전송)
+                console.log(username + ":" + msg.value);
+                websocket.send(username + ":" + msg.value);
+                //전송한 후 공란처리
+                msg.value = '';
+            } //메시지를 보내는 과정
+            
+            function openComment(){
+            	var str = username + "님께서 입장하셨습니다.";
+                websocket.send(str);
+            }
+			
+			function close(){
+				//websocket 연결 해제
+				/* ws.onclose = function(){
+            		setTimeout(onOpen(), 1000);
+            	} */
+			}
+
+            //채팅창에서 나갔을 때
+            function onClose(evt) {
+            }
+
+            //채팅창에 들어왔을 때
+            function onOpen(evt) {
+            	openComment();
+            }
+
+            function onMessage(msg) {
+                let data = msg.data;
+                let arr = data.split(":");
+                let loginUserName = username;
+				//현재 로그인한 유저
+                
+                let messageSender = arr[0];
+                let message = arr[1];
+				
+                if(message == null){
+                	//채팅방 입장 및 퇴장
+                	var str = "<div align='center' style='height: auto;' class='col-6'>";
+                    str += "<div class='alert alert-secondary'>";
+                    str += "<b>" + data + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").append(str);
+                   	return;
+                }
+                
+                if(loginUserName == messageSender){
+                	//현재 로그인한 유저가 메시지를 보낼 경우 → 오른쪽 정렬
+                    var str = "<div align='right' style='height:auto; border: 1px solid green; font-weight:bold;' class='col-6'>";
+                    str += "<div class='alert; alert-secondary'>";
+                    str += "<b>" + messageSender + "<br>" + message + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").append(str);
+                }
+                else{
+                	//다른 유저가 메시지를 보낼 경우 → 왼쪽 정렬
+                    var str = "<div align='left' style='height:auto; border: 1px solid gray;' class='col-6'>";
+                    str += "<div class='alert; alert-warning'>";
+                    str += "<b>" + messageSender + " : " + message + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").append(str);
+                }
+            }
+            })
+</script>
+
+</body>
+
+</html>
