@@ -6,8 +6,6 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Farmily</title>
-	
-	
 	<!-- Favicon-->
 		<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<!-- Font Awesome icons (free version)-->
@@ -17,8 +15,11 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 	<!-- Core theme CSS (includes Bootstrap)-->
         <link href="../css/styles.css" rel="stylesheet" />
+    <!-- ajax csrf token -->
+    <!-- csrf token -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+		<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 </head>
 <body>
 	<!--  header  -->

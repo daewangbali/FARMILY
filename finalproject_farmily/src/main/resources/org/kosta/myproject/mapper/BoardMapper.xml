@@ -41,8 +41,11 @@
 		where board_no=#{value}
 	</select>
 	<insert id="registerJjim" parameterType="org.kosta.myproject.vo.JjimVO">
-	insert into farmily_jjim(board_no,id) values(#{boardNo},#{id});
+		insert into farmily_jjim(board_no,id) values(#{boardNo},#{id})
 	</insert>
+	<delete id="deleteJjim" parameterType="org.kosta.myproject.vo.JjimVO">
+		delete from farmily_jjim where board_no=#{boardNo} and id=#{id}
+	</delete>
 	<select id="findJjim" parameterType="org.kosta.myproject.vo.JjimVO" resultType="String">
 		select count(*) from farmily_jjim where id=#{id} and board_no = #{boardNo}
 	</select>

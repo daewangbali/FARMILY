@@ -34,7 +34,7 @@ public interface BoardMapper {
 	// 내가 쓴 게시물 조회
 	List<BoardVO> findMyPostListById(String id);
 	
-	void registerJjim(JjimVO jvo);
+	
 	
 	//게시물 찜 여부
 	String findJjim(JjimVO jvo);
@@ -44,4 +44,10 @@ public interface BoardMapper {
 
 	//게시글 삭제
 	void deletePost(String id);
+
+	// 게시물 찜하기
+	void registerJjim(JjimVO jvo);
+	//게시물 찜 취소하기
+	void deleteJjim(JjimVO jvo);
+	
 }

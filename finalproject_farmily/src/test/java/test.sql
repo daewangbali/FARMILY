@@ -5,9 +5,6 @@ insert into farmily_member(id,password,name,tel,region,enabled) values('master',
 
 insert into farmily_authorities(username, authority)
 values('qwer', 'ROLE_MASTER')
-
-
-
 create table farmily_member(
 	id varchar2(100) primary key,
 	password varchar2(100) not null,
@@ -16,7 +13,6 @@ create table farmily_member(
 	region varchar2(100) not null,
 	enabled number default 1
 );
-
 insert into farmily_member(id,password,name,tel,region,enabled) values('java','a','감자깡','11','전남',1)
 select * from farmily_member where id='java'
 
@@ -97,7 +93,8 @@ create table farmily_jjim(
 	CONSTRAINT fk_jjim_board_no foreign key(board_no) references farmily_board(board_no),  --외래키 지정문
 	CONSTRAINT fk_jjim_id foreign key(id) references farmily_member (id)  --외래키 지정문
 )
-insert into farmily_jjim(board_no,id) values(2,'java2');
+insert into farmily_jjim(board_no,id) values(7,'java1');
+delete from farmily_jjim where board_no=7 and id='java1';
 select count(*) from farmily_jjim where id='java' and board_no=2
 select * from farmily_jjim
 select b.board_no,b.title,b.content,b.select_categori,b.board_categori,b.region,b.created_date,b.id,j.board_no,j.id
@@ -125,3 +122,6 @@ create sequence seq_farmily_file;
 create sequence seq_farmily_reservation;
 
 alter table farmily_board modify region null;
+
+
+

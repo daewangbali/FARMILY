@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
-import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
 	//게시물 작성
@@ -17,7 +16,7 @@ public interface BoardService {
 	List<BoardVO> findBoardListByRegion(String region);
 		
 	//게시판 카테고리 리스트(농활 or 장터)
-	List<BoardVO> findBoardListByBoardCategori(String boardCategori, Pageable pageable);
+	List<BoardVO> findBoardListByBoardCategori(String boardCategori);
 		
 	//게시물 카테고리 리스트(알바 or 체험 or 중고거래 or 자유)
 	List<BoardVO> findBoardListBySelectCategori(String selectCategori);
@@ -30,8 +29,6 @@ public interface BoardService {
 	
 	//마이페이지
 	List<BoardVO> findMyPostListById(String id);
-
-	void registerJjim(JjimVO jvo);
 	
 	//게시물 찜 여부
 	String findJjim(JjimVO jvo);
@@ -41,4 +38,9 @@ public interface BoardService {
 
 	//게시글 삭제
 	void deletePost(String id);
+
+	// 게시물 찜하기
+	void registerJjim(JjimVO jvo);
+	//게시물 찜 취소하기
+	void deleteJjim(JjimVO jvo);
 }

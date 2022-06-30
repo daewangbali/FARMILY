@@ -8,15 +8,13 @@ import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
 import org.kosta.myproject.vo.MemberVO;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +25,8 @@ public class BoardController {
 	private final BoardService boardService;
 
 	@RequestMapping("guest/boardListByBoardCategori")
-	public String findBoardListByBoardCategori(String boardCategori, Model model, @PageableDefault(page=0, size = 10, sort = "boardNo" ) Pageable pageable) {
-		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori, pageable);
+	public String findBoardListByBoardCategori(String boardCategori, Model model) {
+		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
 		model.addAttribute("boardList", list);
 		return "board/board-categori-list";
 	}
@@ -49,13 +47,7 @@ public class BoardController {
 
 	@GetMapping("registerPostForm")
 	public String registerPostForm(String boardCategori) {
-		String viewName = null;
-		if(boardCategori.equals("농촌활동")) {
-			viewName = "board/registerFarmPostForm";
-		}else {
-			viewName = "board/registerPostForm";
-		}
-		return viewName;
+		return "board/registerPostForm";
 	}
 
 	@PostMapping("registerPost")
@@ -91,19 +83,15 @@ public class BoardController {
 		return "delete-message";
 
 	}
-	
-
 	@RequestMapping("boardView")
 	public String boardView(@AuthenticationPrincipal MemberVO membervo,String boardNo, Model model) throws Exception {
 		BoardVO boardVO = boardService.boardView(boardNo);
-		model.addAttribute("myId",membervo.getId());
 		JjimVO jjimVO = new JjimVO();
 		jjimVO.setBoardNo(boardVO.getBoardNo());
 		jjimVO.setId(membervo.getId());
 		String jjimCheck = boardService.findJjim(jjimVO);
 		model.addAttribute("jjimCheck",jjimCheck);
 		model.addAttribute("boardVO", boardVO);
-		
 		return "board/boardView";
 	}
 
@@ -132,7 +120,7 @@ public class BoardController {
 		model.addAttribute("boardVO", boardVO);
 		return "board/updatePostForm";
 	}
-
+	
 	@PostMapping("updatePost")
 	public String updatePost(@AuthenticationPrincipal MemberVO membervo, BoardVO boardVO, String boardCategori,
 			Model model, MultipartFile file, int boardNo) throws Exception {
@@ -140,8 +128,6 @@ public class BoardController {
 		boardService.updateBoard(boardVO);//이 boardVO안에는 title, content, boardNo만 들어있음
 		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
 	}
-	
-	
 	@PostMapping("registerJjim")
 	public String registerJjim(@AuthenticationPrincipal MemberVO membervo, BoardVO bvo, String boardCategori,
 			Model model) {
@@ -152,5 +138,21 @@ public class BoardController {
 		jjimVO.setId(membervo.getId());
 		
 		return boardCategori;
+	}	
+	@GetMapping("changeJjim")
+	@ResponseBody
+	public String changeJjim(@AuthenticationPrincipal MemberVO membervo,String jjimCheck,int boardNo,Model model) {
+		JjimVO jjimVO = new JjimVO();
+		jjimVO.setBoardNo(boardNo);
+		jjimVO.setId(membervo.getId());
+		if(jjimCheck.equals("0")) {
+			boardService.registerJjim(jjimVO);
+		}else {
+			boardService.deleteJjim(jjimVO);
+		}
+		jjimCheck = boardService.findJjim(jjimVO);
+		model.addAttribute("jjimCheck",jjimCheck);
+		return jjimCheck;
 	}
+
 }

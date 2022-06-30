@@ -3,12 +3,9 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <div layout:fragment="main" >
-	<br>
-	<br>
-	<br>
-	<br>
-	
+<br><br><br><br>
 	<form method="get" enctype="multipart/form-data">
 		<span th:name="boardCategori" th:text="${param.boardCategori}"></span>
 		<table class="table">
@@ -39,16 +36,12 @@
 				<td><textarea rows="10" class="form-control" name="content"
 						placeholder="본문내용" required="required" readonly="readonly" th:text="${boardVO.content}" ></textarea></td>
 			</tr>
-			<tr>
-			<td>
-				<th:block th:if="${jjimCheck=='0'}">
-					<img id="jjim" src="assets/img/planting.png" />
-				</th:block>
-				<th:block th:if="${jjimCheck=='1'}">
-					<img id="jjim" src="assets/img/planting2.png" />
-				</th:block>
-			</td>
+			<tr align="left">
+				<td id="jjimImg">
+					<img height="100" id="jjim" src="" />
+					
 				
+				</td>
 			</tr>
 			
 		</table>
@@ -63,16 +56,58 @@
 			<input type="hidden" name="boardCategori"
 				value="${param.boardCategori}" th:value="${param.boardCategori}">
 			
-			<br><br>
-			<div th:if = "${boardVO.id} == ${myId}">
-				<button type="button" class="btn btn-success" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/updatePostForm(boardNo=${boardVO.boardNo})}'|">수정하기</button>
-				<button type="button" class="btn btn-light" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/deletePost(boardNo=${boardVO.boardNo})}'|">삭제하기</button>
-			</div>
-		</div>	
-	</form>
+			<br>
+			<button class="btn btn-success">수정하기</button>
+			<button class="btn btn-light">삭제하기</button>
+		</div>
 
 	
 	
-</div>	
+	
+	<!--
+	<h1 th:text="${board.title}">제목입니다</h1>
+	<p th:text="${board.content}">내용</p>
+	   -->
+	
+	
+<script type="text/javascript">
+$(function() {
+	let jjimCheck = [[${jjimCheck}]];
+	
+	if(jjimCheck=="1") {
+        $("#jjim").prop("src", "assets/img/planting2.png");
+    }else {
+        $("#jjim").prop("src", "assets/img/planting.png");
+    }
+	
+	var $j = jQuery.noConflict();
+	let token = $("meta[name='_csrf']").attr("content");
+	let header = $("meta[name='_csrf_header']").attr("content");
+	$("#jjim").on("click", function() {
+		
+		$.ajax({
+			type : "get",
+			url : "/changeJjim?jjimCheck="+jjimCheck+"&boardNo="+[[${boardVO.boardNo}]],
+			beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+            },
+			success : function(result){
+				 if (result == 1) {
+					 $("#jjim").prop("src", "assets/img/planting2.png");
+					 jjimCheck = 1;
+					 
+					
+                 } else {
+                	 $("#jjim").prop("src", "assets/img/planting.png");
+                	 jjimCheck = 0;
+                	 
+                 }
+			}
+		});//ajax
+	});//click
+});
+</script>	
+</div>
 </html>
 
