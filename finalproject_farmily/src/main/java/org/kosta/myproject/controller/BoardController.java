@@ -47,7 +47,13 @@ public class BoardController {
 
 	@GetMapping("registerPostForm")
 	public String registerPostForm(String boardCategori) {
-		return "board/registerPostForm";
+		String viewName = null;
+		if(boardCategori.equals("농촌활동")) {
+			viewName = "board/registerFarmPostForm";
+		}else {
+			viewName = "board/registerPostForm";
+		}
+		return viewName;
 	}
 
 	@PostMapping("registerPost")
@@ -86,6 +92,7 @@ public class BoardController {
 	@RequestMapping("boardView")
 	public String boardView(@AuthenticationPrincipal MemberVO membervo,String boardNo, Model model) throws Exception {
 		BoardVO boardVO = boardService.boardView(boardNo);
+		model.addAttribute("myId",membervo.getId());
 		JjimVO jjimVO = new JjimVO();
 		jjimVO.setBoardNo(boardVO.getBoardNo());
 		jjimVO.setId(membervo.getId());
