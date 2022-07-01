@@ -34,6 +34,8 @@ public interface BoardMapper {
 	// 내가 쓴 게시물 조회
 	List<BoardVO> findMyPostListById(String id);
 	
+	// 내가 찜한 게시물 조회
+	List<BoardVO> findMyJjimListById(String id);
 	
 	
 	//게시물 찜 여부

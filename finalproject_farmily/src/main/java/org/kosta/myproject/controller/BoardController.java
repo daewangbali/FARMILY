@@ -120,6 +120,12 @@ public class BoardController {
 		model.addAttribute("boardList", list);
 		return "mypage/findMyPostListById";
 	}
+	@RequestMapping("mypage/findMyJjimListById")
+	public String findMyJjimListById(@AuthenticationPrincipal MemberVO membervo, Model model) {
+		List<BoardVO> list = boardService.findMyJjimListById(membervo.getId());
+		model.addAttribute("boardList", list);
+		return "mypage/findMyJjimListById";
+	}
 	
 	@GetMapping("updatePostForm")
 	public String updatePostForm( String boardNo, Model model) {

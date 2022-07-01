@@ -56,6 +56,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> findMyPostListById(String id) {
 		return boardMapper.findMyPostListById(id);
 	}
+	//내가 찜한 게시물 조회
+	@Override
+	public List<BoardVO> findMyJjimListById(String id) {
+		return boardMapper.findMyJjimListById(id);
+	}
 	@Override
 	public void registerJjim(JjimVO jvo) {
 		boardMapper.registerJjim(jvo);	

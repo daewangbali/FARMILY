@@ -100,7 +100,7 @@ select * from farmily_jjim
 select b.board_no,b.title,b.content,b.select_categori,b.board_categori,b.region,b.created_date,b.id,j.board_no,j.id
 from farmily_jjim j
 inner join farmily_board b on j.board_no=b.board_no
-where j.id='java' and j.board_no=2
+where j.id='java' 
 
 create table farmily_chat(
 	sender varchar2(100),

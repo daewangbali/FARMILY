@@ -27,8 +27,11 @@ public interface BoardService {
 	//농촌활동 게시물 리스트(+지도)
 	List<BoardVO> findBoardFarmingListByBoardCategori(String farmingCategori);
 	
-	//마이페이지
+	//마이페이지 내가 쓴 게시물 조회
 	List<BoardVO> findMyPostListById(String id);
+	
+	//마이페이지 내가 찜한 게시물 조회
+	List<BoardVO> findMyJjimListById(String id);
 	
 	//게시물 찜 여부
 	String findJjim(JjimVO jvo);
@@ -43,4 +46,5 @@ public interface BoardService {
 	void registerJjim(JjimVO jvo);
 	//게시물 찜 취소하기
 	void deleteJjim(JjimVO jvo);
+	
 }

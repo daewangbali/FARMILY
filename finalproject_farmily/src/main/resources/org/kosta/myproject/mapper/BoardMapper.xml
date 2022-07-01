@@ -35,6 +35,12 @@
 	<select id="findMyPostListById" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> where id=#{id} order by board_no desc
 	</select>	
+	<select id="findMyJjimListById" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
+		select b.board_no,b.title,b.content,b.select_categori,b.board_categori,b.region,b.created_date,b.id,j.board_no,j.id
+		from farmily_jjim j
+		inner join farmily_board b on j.board_no=b.board_no
+		where j.id=#{id} order by b.board_no desc
+	</select>
 	<select id="boardView" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		select board_no,title,content,select_categori,board_categori,region,created_date,id, filename, filepath 
 		from farmily_board 
