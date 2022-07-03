@@ -1,58 +1,60 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/layout}"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
-  
-  
-  
-  <div layout:fragment="main" style="height:700px;" >
-  <br><br><br><br>
-  	<table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>글번호</th>
-        <th>지역</th>
-        <th>카테고리</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-      </tr>
-    </thead>
-    <tbody>
 
-      <tr th:each="board:${boardList}">
-        <td th:text="${board.boardNo}">글번호</td>
-        <td th:text="${board.region}">지역</td>
-        <td th:text="${board.boardCategori}">카테고리</td>
-        <td>
-        	<a th:text="${board.title}" th:href="@{/boardView(boardNo=${board.boardNo})}"></a>
-        </td>
-        <td th:text="${board.id}">작성자</td>
-        <td th:text="${board.createdDate}">작성일</td>
-      </tr>
-    </tbody>
-  </table>
-  	<br>
-  	
-  	
-  		<ul class="pagination">
-   			 <li class="page-item active"><a class="page-link" href="#">이전페이지</a></li> 
-   			 <li class="page-item "><a class="page-link" href="#">1</a></li>
-   			 <li class="page-item "><a class="page-link" href="#">2</a></li>
-   			 <li class="page-item "><a class="page-link" href="#">3</a></li>
-   			 <li class="page-item "><a class="page-link" href="#">4</a></li>
-   			 <li class="page-item "><a class="page-link" href="#">5</a></li>
-   			 <li class="page-item active"><a class="page-link" href="#">다음페이지</a></li>
- 		 </ul>
+
+
+<div layout:fragment="main" style="height: 700px;">
+	<br>
+	<br>
+	<br>
+	<br>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>지역</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="board:${boardList}">
+				<td th:text="${board.boardNo}">글번호</td>
+				<td th:text="${board.region}">지역</td>
+				<td th:text="${board.boardCategori}">카테고리</td>
+				<td><a th:text="${board.title}"
+					th:href="@{/boardView(boardNo=${board.boardNo})}"></a></td>
+				<td th:text="${board.id}">작성자</td>
+				<td th:text="${board.createdDate}">작성일</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+
+
+	<ul class="pagination">
+		<li class="page-item active"><a class="page-link" href="#">이전페이지</a></li>
+		<li class="page-item "><a class="page-link" href="#">1</a></li>
+		<li class="page-item "><a class="page-link" href="#">2</a></li>
+		<li class="page-item "><a class="page-link" href="#">3</a></li>
+		<li class="page-item "><a class="page-link" href="#">4</a></li>
+		<li class="page-item "><a class="page-link" href="#">5</a></li>
+		<li class="page-item active"><a class="page-link" href="#">다음페이지</a></li>
+	</ul>
+
+
 	
-  	
-  	
-  	
-	<button type="button" class="btn btn-secondary" sec:authorize="isAuthenticated()==true" th:onclick="|location.href='@{/registerPostForm (boardCategori=${param.boardCategori})}'|">글쓰기</button>
-  </div>
+
+	<button type="button" class="btn btn-secondary"
+		sec:authorize="isAuthenticated()==true"
+		th:onclick="|location.href='@{/registerPostForm (boardCategori=${param.boardCategori})}'|">글쓰기</button>
+</div>
 </html>

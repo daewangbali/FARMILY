@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
@@ -56,9 +57,18 @@ public class BoardController {
 		return viewName;
 	}
 
+	/*
+	   데이터타입 메소드명(RedirectAttributes ra){
+ 	ra.addAttribute("전달할변수명", 전달할데이터);
+ 	ra.addFlashAttribute("전달할변수명", 전달할데이터);
+ 	return "redirect:/"
+		}
+		addAttribute는 get 방식으로 넘겨줄 때처럼 url 뒤에 "?변수명=데이터" 가 함께 붙어 전달된다.
+	 */
+	
 	@PostMapping("registerPost")
 	public String registerPost(@AuthenticationPrincipal MemberVO membervo, BoardVO bvo, String boardCategori,
-			Model model, MultipartFile file) throws Exception {
+			Model model, MultipartFile file, RedirectAttributes redirect) throws Exception {
 		bvo.setId(membervo.getId());
 
 		if (file.isEmpty()) {
@@ -78,14 +88,16 @@ public class BoardController {
 			bvo.setFilepath("/files/" + fileName);
 		}
 		boardService.registerBoard(bvo);
-		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
+		redirect.addAttribute("boardCategori", boardCategori);
+		//return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
+		return "redirect:/guest/boardListByBoardCategori";
 	}
 	
 	@GetMapping("deletePost")
 	public String deletePost(String boardNo, Model model) {
 		boardService.deletePost(boardNo);
 		model.addAttribute("message", "게시글이 삭제되었습니다.");
-		model.addAttribute("searchUrl", "http://localhost:7777/#");
+		model.addAttribute("searchUrl", "home");
 		return "delete-message";
 
 	}
@@ -136,10 +148,15 @@ public class BoardController {
 	
 	@PostMapping("updatePost")
 	public String updatePost(@AuthenticationPrincipal MemberVO membervo, BoardVO boardVO, String boardCategori,
-			Model model, MultipartFile file, int boardNo) throws Exception {
+			Model model, MultipartFile file, int boardNo, RedirectAttributes redirect) throws Exception {
 		boardVO.setBoardNo(boardNo);
+		
 		boardService.updateBoard(boardVO);//이 boardVO안에는 title, content, boardNo만 들어있음
-		return "redirect:/guest/boardListByBoardCategori?boardCategori=" + boardCategori;
+		
+		model.addAttribute("message", "게시글이 수정되었습니다.");
+		model.addAttribute("searchUrl", "home");
+		return "update-message";
+		
 	}
 	@PostMapping("registerJjim")
 	public String registerJjim(@AuthenticationPrincipal MemberVO membervo, BoardVO bvo, String boardCategori,
