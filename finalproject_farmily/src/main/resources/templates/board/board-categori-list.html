@@ -17,23 +17,25 @@
 		<thead>
 			<tr>
 				<th>글번호</th>
-				<th>지역</th>
+				<th>농촌활동/장터</th>
 				<th>카테고리</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
+				<th>조회수</th>
 			</tr>
 		</thead>
 		<tbody>
 
 			<tr th:each="board:${boardList}">
 				<td th:text="${board.boardNo}">글번호</td>
-				<td th:text="${board.region}">지역</td>
-				<td th:text="${board.boardCategori}">카테고리</td>
+				<td th:text="${board.boardCategori}">농촌활동/장터</td>
+				<td th:text="${board.selectCategori}">카테고리</td>
 				<td><a th:text="${board.title}"
 					th:href="@{/boardView(boardNo=${board.boardNo})}"></a></td>
 				<td th:text="${board.id}">작성자</td>
 				<td th:text="${board.createdDate}">작성일</td>
+				<td th:text="${board.createdDate}">조회수</td>
 			</tr>
 		</tbody>
 	</table>
