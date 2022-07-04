@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<div layout:fragment="main" >
+	<script type="text/javascript">
+		$(function() {
+			let cdate = new Set();
+			
+			$('.chkBox').click(function() {
+				let thisVal = $(this).val();
+				if($(".chkBox").is(":checked")==true){
+					cdate.add(thisVal);				
+				}else{
+					cdate.delete(thisVal);
+				}
+				var arr = Array.from(cdate);
+				$("#myCheckList").val(arr);
+			});
+			
+			//form submit 시 예약 날짜 체크박스 확인
+			$("#reserveForm").submit(function() {
+				if ($("input:checkbox[class='chkBox']").is(":checked")==false) {
+					alert("예약 날짜를 선택해 주십시오.");
+					return false;
+				}
+			});
+			
+
+			
+		});
+	</script>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form method="post" id="reserveForm"  th:action="registerReservation" >
+		<span th:name="boardCategori" th:text="${param.boardCategori}"></span>
+		<input type="hidden" id="myCheckList" name="myCheckList" >
+		<table class="table" >
+			<tr>
+				<td><h1>농촌활동 예약하기</h1></td>
+			</tr>
+			<tr align="left">
+				<td style="font-size: 20px">
+				<span style="font-weight: bold; " th:text="${boardVO.title}"></span> <br>
+				<span style="font-weight: bold; "> 지역 : </span> <span th:text="${boardVO.region}"></span> <br>
+				<span style="font-weight: bold; "> 주소 : </span> <span th:text="${boardVO.detailRegion}"></span> <br>
+				<span style="font-weight: bold; "> 활동내용 : </span><span th:text="${boardVO.selectCategori}"></span><br>
+				
+					
+					<div id="chooseDate"></div>
+				</td>
+			</tr>
+			<tr align="left">
+				<td style="font-size: 20px">
+					<span style="font-weight: bold; "> 예약가능날짜 : </span><br>
+					<th:block th:each="rdate:${rdateList}">
+					<input class="chkBox" type="checkbox" th:text="${rdate.reservationDate}" th:value="${rdate.reservationDate}" >
+					<span style="margin-left: 150px"></span>
+					<br>
+					
+				</th:block>
+				</td>
+			</tr>
+			<tr>
+				<td><img style="max-width: 850px" th:src="@{${boardVO.filepath}}" /></td>
+			</tr>
+			<tr>
+				<td><textarea rows="10" class="form-control" name="content"
+						placeholder="본문내용" required="required" th:text="${boardVO.content}" ></textarea></td>
+			</tr>
+
+		</table>
+	
+		<div class="text-center">
+			<input type="hidden" name="boardNo"
+				value="${boardVO.boardNo}" th:value="${boardVO.boardNo}">
+			
+			<button type="submit" class="btn btn-outline-dark" sec:authorize="isAuthenticated()==true" >예약하기</button>
+			
+			<br><br>
+		</div>
+	</form>
+	
+</div>	
+</html>

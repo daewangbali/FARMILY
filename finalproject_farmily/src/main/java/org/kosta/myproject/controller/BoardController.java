@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.UUID;
 
 import org.kosta.myproject.service.BoardService;
+import org.kosta.myproject.service.ReserveService;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
 import org.kosta.myproject.vo.MemberVO;
+import org.kosta.myproject.vo.ReservationVO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardController {
 	private final BoardService boardService;
+	private final ReserveService reserveService;
 
 	@RequestMapping("guest/boardListByBoardCategori")
 	public String findBoardListByBoardCategori(String boardCategori, Model model) {
@@ -103,6 +106,7 @@ public class BoardController {
 	}
 	@RequestMapping("boardView")
 	public String boardView(@AuthenticationPrincipal MemberVO membervo,String boardNo, Model model) throws Exception {
+		String viewName = "board/boardView";
 		BoardVO boardVO = boardService.boardView(boardNo);
 		model.addAttribute("myId",membervo.getId());
 		JjimVO jjimVO = new JjimVO();
@@ -110,8 +114,15 @@ public class BoardController {
 		jjimVO.setId(membervo.getId());
 		String jjimCheck = boardService.findJjim(jjimVO);
 		model.addAttribute("jjimCheck",jjimCheck);
+		//농촌활동 뷰페이지 다름
+		if(boardVO.getBoardCategori().equals("농촌활동")) {
+			//예약 가능 날짜 불러와서 보내주기
+			List<ReservationVO> rdateList = reserveService.findReservateDate(boardNo);
+			model.addAttribute("rdateList",rdateList);
+			viewName = "board/boardFarmView";
+		}
 		model.addAttribute("boardVO", boardVO);
-		return "board/boardView";
+		return viewName;
 	}
 
 	@RequestMapping("mypage")

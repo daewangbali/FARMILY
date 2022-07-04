@@ -1,5 +1,7 @@
 package org.kosta.myproject.service;
 
+import java.util.List;
+
 import org.kosta.myproject.vo.ReservationVO;
 
 public interface ReserveService {
@@ -7,5 +9,11 @@ public interface ReserveService {
 	void availableReservation(ReservationVO reservationVO);
 
 	//등록한 게시물 번호 가져오기
-	int getBoardNo(String id);
+	String getBoardNo(String id);
+	
+	//예약가능날짜 가져오기
+	List<ReservationVO> findReservateDate(String boardNo);
+	
+	//예약하기
+	void registerReservation(ReservationVO rvo);
 }

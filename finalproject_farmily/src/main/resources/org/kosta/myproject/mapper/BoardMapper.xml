@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.mapper.BoardMapper">
 	<sql id="selectBoard">
- 		select board_no,title,content,select_categori,board_categori,region,created_date,id from farmily_board
+ 		select board_no,title,content,select_categori,board_categori,region,created_date,id,detail_region from farmily_board
  	</sql>
 	<insert id="registerBoardBoard" parameterType="org.kosta.myproject.vo.BoardVO">
-		insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id,filename,filepath)
-		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id},#{filename},#{filepath})
+		insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id,filename,filepath,detail_region)
+		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id},#{filename},#{filepath},#{detailRegion})
 	</insert>
 	
 	
@@ -42,7 +42,7 @@
 		where j.id=#{id} order by b.board_no desc
 	</select>
 	<select id="boardView" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
-		select board_no,title,content,select_categori,board_categori,region,created_date,id, filename, filepath 
+		select board_no,title,content,select_categori,board_categori,region,created_date,id, filename, filepath ,detail_region
 		from farmily_board 
 		where board_no=#{value}
 	</select>

@@ -1,5 +1,7 @@
 package org.kosta.myproject.service;
 
+import java.util.List;
+
 import org.kosta.myproject.mapper.ReserveMapper;
 import org.kosta.myproject.vo.ReservationVO;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,19 @@ public class ReserveServiceImpl implements ReserveService{
 	public void availableReservation(ReservationVO reservationVO) {
 		reserveMapper.availableReservation(reservationVO);
 	}
+	@Override
+	public String getBoardNo(String id) {
+		return reserveMapper.getBoardNo(id);
+	}
 
 	@Override
-	public int getBoardNo(String id) {
-		return reserveMapper.getBoardNo(id);
+	public List<ReservationVO> findReservateDate(String boardNo) {
+		return reserveMapper.findReservateDate(boardNo);
+	}
+
+	@Override
+	public void registerReservation(ReservationVO rvo) {
+		reserveMapper.registerReservation(rvo);
 	}
 	
 	

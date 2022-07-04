@@ -24,8 +24,8 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#농촌활동" th:href="@{/guest/boardFarmingListByBoardCategori}">농촌활동</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#market" th:href="@{/guest/boardListByBoardCategori(boardCategori='장터')}">장터</a></li>
                     	<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#market" th:href="@{/chat}">채팅서비스</a></li>
+                    	<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" id="logoutButton">로그아웃</a></li>
                     </ul>
-	                    <button id="logoutButton" type="button">로그아웃</a>
 	                    <form id="logoutForm" th:action="@{/member/logout}" method="post" style="display: none"></form>
 	                    	<script type="text/javascript">
 							$(function() {

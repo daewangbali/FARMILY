@@ -18,4 +18,5 @@ public class BoardVO {
 	private String id;
 	private String filename;
 	private String filepath;
+	private String detailRegion;
 }

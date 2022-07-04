@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class ReservationVO {
 	private int reservationNo;
 	private String reservationDate;
-	private int boardNo;
+	private String boardNo;
 	private String id;
 }
