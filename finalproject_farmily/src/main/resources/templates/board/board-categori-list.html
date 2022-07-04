@@ -54,9 +54,12 @@
 
 
 	
-
-	<button type="button" class="btn btn-secondary"
+		<button type="button" class="btn btn-secondary"
 		sec:authorize="isAuthenticated()==true"
 		th:onclick="|location.href='@{/registerPostForm (boardCategori=${param.boardCategori})}'|">글쓰기</button>
+	
+	
+
+	
 </div>
 </html>

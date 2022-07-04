@@ -74,7 +74,8 @@ public class ReserveController {
 	}
 	
 	@PostMapping("registerReservation")
-	public String registerReservation(@AuthenticationPrincipal MemberVO membervo,String[] myCheckList,String boardNo) {
+	public String registerReservation(@AuthenticationPrincipal MemberVO membervo,String[] myCheckList,String boardNo, Model model) {
+		BoardVO boardVO = boardService.boardView(boardNo);
 		ReservationVO rvo = new ReservationVO();
 		rvo.setBoardNo(boardNo);
 		rvo.setId(membervo.getId());
@@ -82,6 +83,9 @@ public class ReserveController {
 			rvo.setReservationDate(myCheckList[i]);
 			reserveService.registerReservation(rvo);
 		}
+		model.addAttribute("myCheckList",myCheckList);
+		model.addAttribute("boardVO",boardVO);
+		model.addAttribute("memberVO",membervo);
 		return "reserve/reservation-ok";
 	}
 }

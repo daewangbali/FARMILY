@@ -7,18 +7,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<div layout:fragment="main" style="height: 700px;">
-<br><br><br><br><br>
-	<h3>예약완료!</h3><br>
-	<div class="container-lg" align="left" style="font-size: 25px">
-	<span th:text="|${memberVO.name} 님|"></span><br>
-	<span th:text="|${boardVO.detailRegion}|"></span><br>
-	<span th:text="|${boardVO.title}|"></span><br>
-	<th:block th:each="cdate:${myCheckList}">
-		<span th:text="${cdate}"></span><br>
-	</th:block>
-	
-	<span th:text="|농촌활동이 예약되셨습니다.|"></span><br>
-	</div>
+<div layout:fragment="main" >
+<br><br><br><br>
+	<span th:text="예약완료">예약완료!</span>
+	<script type="text/javascript">
+		alert("예약 가능한 날짜가 없습니다");
+		window.history.back();
+	</script>
 </div>	
 </html>

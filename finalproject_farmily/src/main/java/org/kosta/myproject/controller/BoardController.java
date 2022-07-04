@@ -124,7 +124,9 @@ public class BoardController {
 		if(boardVO.getBoardCategori().equals("농촌활동")) {
 			//예약 가능 날짜 불러와서 보내주기
 			List<ReservationVO> rdateList = reserveService.findReservateDate(boardNo);
+			int rdateListSize = rdateList.size();
 			model.addAttribute("rdateList",rdateList);
+			model.addAttribute("rdateListSize",rdateListSize);
 			viewName = "board/boardFarmView";
 		}
 		model.addAttribute("boardVO", boardVO);
