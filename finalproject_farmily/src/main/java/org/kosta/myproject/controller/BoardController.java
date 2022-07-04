@@ -28,6 +28,12 @@ public class BoardController {
 	private final BoardService boardService;
 	private final ReserveService reserveService;
 
+	@RequestMapping("guest/findAllBoardList")
+	public String findAllBoardList(Model model) {
+		List<BoardVO> list = boardService.findAllBoardList();
+		model.addAttribute("boardList", list);
+		return "guest/all-board-list";
+	}
 	@RequestMapping("guest/boardListByBoardCategori")
 	public String findBoardListByBoardCategori(String boardCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
@@ -100,7 +106,7 @@ public class BoardController {
 	public String deletePost(String boardNo, Model model) {
 		boardService.deletePost(boardNo);
 		model.addAttribute("message", "게시글이 삭제되었습니다.");
-		model.addAttribute("searchUrl", "home");
+		model.addAttribute("searchUrl", "guest/findAllBoardList");
 		return "delete-message";
 
 	}
@@ -165,7 +171,7 @@ public class BoardController {
 		boardService.updateBoard(boardVO);//이 boardVO안에는 title, content, boardNo만 들어있음
 		
 		model.addAttribute("message", "게시글이 수정되었습니다.");
-		model.addAttribute("searchUrl", "home");
+		model.addAttribute("searchUrl", "guest/findAllBoardList");
 		return "update-message";
 		
 	}
