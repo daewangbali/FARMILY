@@ -68,6 +68,8 @@ public class MemberController {
 		vo.setName(memberVO.getName());
 		vo.setRegion(memberVO.getRegion());	
 		vo.setTel(memberVO.getTel());
+		vo.setFilename(memberVO.getFilename());
+		vo.setFilepath(memberVO.getFilepath());
 		return "redirect:updateResult";
 	}
 	@GetMapping("updateResult")	

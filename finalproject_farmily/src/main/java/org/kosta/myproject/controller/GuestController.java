@@ -41,13 +41,11 @@ public class GuestController {
 				String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\profilephoto";
 				UUID uuid = UUID.randomUUID();
 				String fileName = uuid + "_" + file.getOriginalFilename();
-
 				File saveFile = new File(projectPath, fileName);
-
 				file.transferTo(saveFile);
-
 				memberVO.setFilename(fileName);
 				memberVO.setFilepath("/profilephoto/" + fileName);
+			
 			}
 			
 			memberService.registerMember(memberVO);

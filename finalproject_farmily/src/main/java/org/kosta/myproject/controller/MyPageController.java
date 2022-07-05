@@ -27,6 +27,12 @@ public class MyPageController {
 	private final MemberService memberService;
 	private final BCryptPasswordEncoder passwordEncoder;
 	
+	@RequestMapping("mypage")
+	public String mypage(@AuthenticationPrincipal MemberVO memberVO, Model model) {
+		model.addAttribute("memberVO", memberVO);
+		return "mypage/mypageindex";
+	}
+	
 	@RequestMapping("mypage/updateMemberForm")
 	public String updateMemberForm(@AuthenticationPrincipal MemberVO memberVO, Model model) {
 		model.addAttribute("memberVO", memberVO);

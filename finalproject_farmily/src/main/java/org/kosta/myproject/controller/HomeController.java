@@ -1,6 +1,8 @@
 package org.kosta.myproject.controller;
 
+import org.kosta.myproject.vo.MemberVO;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +14,16 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	
 	@RequestMapping(value = {"/home","/"})
-	public String home(Authentication authentication,Model model){//Authentication : Spring Security의 인증객체 
+	public String home(Authentication authentication, Model model){//Authentication : Spring Security의 인증객체 
 		//Spring Security Authentication 인증객체는 아래처럼 SecurityContext 에 저장되어 있다 
 		//log.info("home "+SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
 		//Principal(사전적 의미:본인 ) 객체는 인증된 회원 정보 객체를 말한다
 		//org.kosta.myproject.config.security.MemberAuthenticationProvider 에서 할당 
-		if(authentication!=null)
+		if(authentication!=null) 
 		  log.info("Home: 인증받은 사용자 {} ",authentication.getPrincipal());
+	
 		else
-			log.info("Home: 인증받지 않은 사용자");
+			log.info("Home: 인증받지 않은 사용자");	
 		model.addAttribute("message", "SpringBoot Security Thymeleaf");
 		return "index";
 	}

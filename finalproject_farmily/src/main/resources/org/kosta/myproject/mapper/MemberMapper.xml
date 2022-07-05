@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.mapper.MemberMapper">
 	<sql id="selectMember">
- 		select id,password,name,region,tel from farmily_member
+ 		select id,password,name,region,tel,filename,filepath from farmily_member
  	</sql>
  	<insert id="registerMember" parameterType="org.kosta.myproject.vo.MemberVO">
 		insert into farmily_member(id,password,name,region,tel,filename,filepath)
@@ -18,7 +18,7 @@
 	      사용가능한(enabled 1) 계정일 경우만 조회. 
 	 	-->
 	<select id="findMemberById" parameterType="string" resultType="org.kosta.myproject.vo.MemberVO">
- 		SELECT	id,	password,	name, region, tel, enabled
+ 		SELECT	id,	password,	name, region, tel, enabled, filename, filepath
 		FROM	farmily_member
 		WHERE 	id=#{id}	
 		AND		enabled=1 		

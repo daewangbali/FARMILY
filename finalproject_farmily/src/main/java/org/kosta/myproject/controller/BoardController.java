@@ -134,10 +134,7 @@ public class BoardController {
 		return viewName;
 	}
 
-	@RequestMapping("mypage")
-	public String mypage() {
-		return "mypage/index";
-	}
+	
 	
 	@RequestMapping("guest/boardFarmingListByBoardCategori")
 	public String findBoardFarmingListByBoardCategori(String farmingCategori, Model model) throws Exception {
