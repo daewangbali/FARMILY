@@ -17,8 +17,10 @@
 				<td th:if="${param.boardCategori=='농촌활동'}"><input type="text"
 					name="region" placeholder="지역" required="required" size="50">
 				</td>
-				<td th:unless="${param.boardCategori=='장터'}"><input
-					type="hidden" name="region" value=""></td>
+				<td th:unless="${param.boardCategori=='장터'}">
+				<input type="hidden" name="region" value="">
+				<input type="hidden" name="detailRegion" value="">
+				</td>
 			</tr>
 			<tr>
 				<td><input type="text" name="title" 

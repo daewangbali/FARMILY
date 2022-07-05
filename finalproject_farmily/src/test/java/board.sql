@@ -1,3 +1,15 @@
+select * from farmily_board
+select * from FARMILY_MEMBER
+--profile photo를 위한 filename, filepath
+ALTER TABLE farmily_MEMBER ADD filename varchar2(150);
+ALTER TABLE farmily_MEMBER ADD filepath varchar2(300);
+
+
+
+
+
+
+
 --farmily_file 테이블 drop하고 다시 생성
 drop table farmily_file
 create table farmily_file(
