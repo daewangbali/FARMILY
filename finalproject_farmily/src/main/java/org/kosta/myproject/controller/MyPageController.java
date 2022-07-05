@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.RequiredArgsConstructor;
@@ -33,9 +34,9 @@ public class MyPageController {
 	}
 	
 	@PostMapping("mypage/updateMember")
-	public String updateMember(@AuthenticationPrincipal MemberVO mvo, String memberPassword, String memberName, int memberTel, String memberRegion) {
+	public String updateMember(@AuthenticationPrincipal MemberVO mvo, String memberPassword, String memberName, int memberTel, String memberRegion, String filename, String filepath, Model model, MultipartFile file) {
 		String encodedPwd = passwordEncoder.encode(memberPassword);
-		MemberVO memberVO = new MemberVO(mvo.getId(), encodedPwd, memberName, memberTel, memberRegion, 1);
+		MemberVO memberVO = new MemberVO(mvo.getId(), encodedPwd, memberName, memberTel, memberRegion, 1, filename, filepath);
 		mypageService.updateMember(memberVO);
 		
 		return "redirect:/mypage/updateResultView?id="+mvo.getId();

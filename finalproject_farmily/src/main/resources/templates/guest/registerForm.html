@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>FARMILY</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="/guest/assets/favicon.ico" />
         <!-- Bootstrap Icons-->
@@ -139,7 +139,7 @@
             </div>
         </section>
         <!-- form -->
-        <form id="reigsterForm" method="post" th:action="@{/guest/registerMember}">
+        <form id="reigsterForm" method="post" th:action="@{/guest/registerMember}" enctype="multipart/form-data">
         <section class="page-section bg-warning" id="role">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -157,14 +157,13 @@
             </div>
         </section>
         <!-- role -->
-        <form id="reigsterForm" method="post" th:action="@{/guest/registerMember}">
         <section class="page-section bg-primary" id="id">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
                         <h1 class="text-white mt-0">아이디를 입력해주세요!</h1>
                         <div class="form-floating mb-3">
-                                <input class="form-control" name="memberId" id="memberId" type="text">
+                                <input class="form-control" name="id" id="memberId" type="text">
                                 <p class="text-white-75 mb-4" id="idCheckView"></p>
                                 <label>ID</label>
                         </div>
@@ -181,7 +180,7 @@
                     <div class="col-lg-8 text-center">
                         <h1 class="text-white mt-0">비밀번호를 입력해주세요!</h1>
                         <div class="form-floating mb-3">
-                                <input class="form-control" name="memberPassword" id="memberPassword" type="password">
+                                <input class="form-control" name="password" id="memberPassword" type="password">
                                 <label>password</label>
                         </div>
                         <hr class="divider divider-light" />
@@ -198,7 +197,7 @@
                     <div class="col-lg-8 text-center">
                         <h1 class="text-white mt-0">이름을 입력해주세요!</h1>
                         <div class="form-floating mb-3">
-                                <input class="form-control" name="memberName" id="memberName" type="text"/>
+                                <input class="form-control" name="name" id="memberName" type="text"/>
                                 <label>name</label>
                         </div>
                         <hr class="divider divider-light" />
@@ -213,9 +212,9 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h1 class="text-white mt-0">전화번호를 입력해주세요(-없이 숫자만)!</h1>
+                        <h1 class="text-white mt-0">전화번호를 입력해주세요!</h1>
                         <div class="form-floating mb-3">
-                                <input class="form-control" name="memberTel" id="memberTel" type="number"/>
+                                <input class="form-control" name="tel" id="memberTel" type="number"/>
                                 <label>tel</label>
                         </div>
                         <hr class="divider divider-light" />
@@ -231,7 +230,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
                         <h1 class="text-white mt-0">지역을 선택해주세요!</h1>
-                                <select class="form-select form-select-lg mb-5" aria-label=".form-select-lg example" name="memberRegion" id="memberRegion">
+                                <select class="form-select form-select-lg mb-5" aria-label=".form-select-lg example" name="region" id="memberRegion">
                                 	<option value ="seoul">서울특별시</option>
                                 	<option value ="gyeonggido">경기도</option>
                                 	<option value ="gangwondo">강원도</option>
@@ -251,16 +250,32 @@
                                 </select>
                         <hr class="divider divider-light" />
                         <p class="text-black-75 mb-4"></p>
-                        <input class="btn btn-light btn-xl" type="submit" value="모든 항목을 입력하셨다면 가입하기!">
+                        <a class="btn btn-light btn-xl" href="#profilephoto">다음단계로 넘어가기</a>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- region -->
+        <!-- profilephoto -->
+        <section class="page-section bg-warning" id="profilephoto">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h1 class="text-white mt-0">"파일선택"에서 프로필 사진을 골라주세요 </h1>
+                        <div class="form-floating mb-3">
+                                <input class="form-control" name="file" id="profilephoto"  type="file"/>
+                        </div>
+                        <hr class="divider divider-light" />
+                        <p class="text-black-75 mb-4"></p>
+                        
+                         <input class="btn btn-light btn-xl" type="submit" value="모든 항목을 입력하셨다면 가입하기!">
+                    </div>
+                </div>
+            </div>
+        </section>
         </form>
         <!-- Footer-->
         <footer class="bg-light py-5">
-            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2022 - Company Name</div></div>
+            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; FARMILY</div></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

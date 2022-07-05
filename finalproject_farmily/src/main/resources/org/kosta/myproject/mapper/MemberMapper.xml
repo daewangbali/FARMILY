@@ -5,8 +5,8 @@
  		select id,password,name,region,tel from farmily_member
  	</sql>
  	<insert id="registerMember" parameterType="org.kosta.myproject.vo.MemberVO">
-		insert into farmily_member(id,password,name,region,tel)
-		values(#{id},#{password},#{name},#{region},#{tel})
+		insert into farmily_member(id,password,name,region,tel,filename,filepath)
+		values(#{id},#{password},#{name},#{region},#{tel},#{filename},#{filepath})
 	</insert>
 	<select id="idcheck" resultType="int">
 		select count(*) from farmily_member where id=#{id}

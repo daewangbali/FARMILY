@@ -14,5 +14,7 @@ public class MemberVO {
 	private int tel;
 	private String region;
 	private int enabled;
+	private String filename;
+	private String filepath;
 	
 }
