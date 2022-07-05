@@ -47,4 +47,7 @@ public interface BoardService {
 	//게시물 찜 취소하기
 	void deleteJjim(JjimVO jvo);
 	
+	// 조회수 업데이트
+	void updateCount(String boardNo);	
+	
 }

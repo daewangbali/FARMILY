@@ -37,7 +37,8 @@ create table farmily_board(
 
 
 select * from FARMILY_BOARD
-
+ALTER TABLE farmily_board ADD(HIT NUMBER DEFAULT 0);
+update farmily_board set hit=hit+1 where board_no=1;
 
 --file 테이블 없애고 board에 추가함
 ALTER TABLE farmily_board ADD filename varchar2(150) NULL;

@@ -115,6 +115,7 @@ public class BoardController {
 		String viewName = "board/boardView";
 		BoardVO boardVO = boardService.boardView(boardNo);
 		model.addAttribute("myId",membervo.getId());
+		boardService.updateCount(boardNo);
 		JjimVO jjimVO = new JjimVO();
 		jjimVO.setBoardNo(boardVO.getBoardNo());
 		jjimVO.setId(membervo.getId());

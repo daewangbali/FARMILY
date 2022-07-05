@@ -52,4 +52,6 @@ public interface BoardMapper {
 	//게시물 찜 취소하기
 	void deleteJjim(JjimVO jvo);
 	
+	// 조회수 업데이트하기
+		void updateCount(String boardNo);
 }

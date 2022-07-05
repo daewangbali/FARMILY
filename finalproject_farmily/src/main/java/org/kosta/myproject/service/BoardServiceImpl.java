@@ -86,5 +86,9 @@ public class BoardServiceImpl implements BoardService{
 		boardMapper.deletePost(boardNo);
 	}
 
-
+	//조회수 업데이트
+	@Override
+	public void updateCount(String boardNo) {
+		boardMapper.updateCount(boardNo);
+	}
 }

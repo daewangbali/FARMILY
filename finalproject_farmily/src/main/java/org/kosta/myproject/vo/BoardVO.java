@@ -19,4 +19,5 @@ public class BoardVO {
 	private String filename;
 	private String filepath;
 	private String detailRegion;
+	private int hit;
 }
