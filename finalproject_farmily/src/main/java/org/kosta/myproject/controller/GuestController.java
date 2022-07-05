@@ -34,8 +34,8 @@ public class GuestController {
 			memberService.registerAdminMember(memberVO);
 		}else {
 			if (file.isEmpty()) {
-				memberVO.setFilename("");
-				memberVO.setFilepath("");
+				memberVO.setFilename("farmer1");
+				memberVO.setFilepath("/assets/img/farmer1.png");
 
 			} else {
 				String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\profilephoto";
