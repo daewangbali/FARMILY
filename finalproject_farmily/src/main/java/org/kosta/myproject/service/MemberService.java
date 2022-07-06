@@ -30,4 +30,6 @@ public interface MemberService {
 	void grantAdminMember(String id);
 
 	void deleteWaitingMember(String id);
+	
+	String findAuthorityById(String username);
 }

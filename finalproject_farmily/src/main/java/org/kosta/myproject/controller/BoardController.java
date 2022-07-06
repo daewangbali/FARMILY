@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.kosta.myproject.service.BoardService;
+import org.kosta.myproject.service.MemberService;
 import org.kosta.myproject.service.ReserveService;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	private final BoardService boardService;
 	private final ReserveService reserveService;
+	private final MemberService memberService;
 
 	@RequestMapping("guest/findAllBoardList")
 	public String findAllBoardList(Model model) {
@@ -35,16 +37,21 @@ public class BoardController {
 		return "guest/all-board-list";
 	}
 	@RequestMapping("guest/boardListByBoardCategori")
-	public String findBoardListByBoardCategori(String boardCategori, Model model) {
+	public String findBoardListByBoardCategori(@AuthenticationPrincipal MemberVO membervo,String boardCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
+		String authority = memberService.findAuthorityById(membervo.getId());
 		model.addAttribute("boardList", list);
+		model.addAttribute("authority", authority);
 		return "board/board-categori-list";
 	}
 
 	@RequestMapping("guest/boardListBySelectCategori")
-	public String boardListBySelectCategori(String selectCategori, Model model) {
+	public String boardListBySelectCategori(@AuthenticationPrincipal MemberVO membervo,String boardCategori,String selectCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListBySelectCategori(selectCategori);
+		String authority = memberService.findAuthorityById(membervo.getId());
 		model.addAttribute("boardList", list);
+		model.addAttribute("authority", authority);
+		model.addAttribute("boardCategori", boardCategori);
 		return "board/board-categori-list";
 	}
 

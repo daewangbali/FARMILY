@@ -71,4 +71,7 @@
 		where authority = 'ROLE_WAIT'
 		and username = #{id}
 	</delete>
+	<select id="findAuthorityById" parameterType="String" resultType="String">
+		select authority from farmily_authorities where username = #{value}
+	</select>
 </mapper>

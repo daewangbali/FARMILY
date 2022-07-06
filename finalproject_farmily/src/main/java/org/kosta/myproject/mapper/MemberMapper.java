@@ -34,5 +34,7 @@ public interface MemberMapper {
 	void grantAdminMember(String id);
 
 	void deleteWaitingMember(String id);
+	
+	String findAuthorityById(String username);
 
 }

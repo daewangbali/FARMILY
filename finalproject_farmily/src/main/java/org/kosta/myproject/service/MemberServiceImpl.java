@@ -102,5 +102,9 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		memberMapper.deleteWaitingMember(id);
 	}
+	@Override
+	public String findAuthorityById(String username) {
+		return memberMapper.findAuthorityById(username);
+	}
 
 }
