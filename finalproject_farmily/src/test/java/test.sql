@@ -124,5 +124,12 @@ create sequence seq_farmily_reservation;
 
 alter table farmily_board modify region null;
 
+-- 컬럼명 오타ㅠ변경 부탁
+ALTER TABLE farmily_reservation RENAME COLUMN revervation_date TO reservation_date
+-- 주소 디테일 컬럼 추가 (vo에도 추가)
+ALTER TABLE farmily_board ADD detail_region VARCHAR2(200);
+
+-- 승인하는 관리자 insert (id명 master로 회원가입 먼저 하기)
+insert into farmily_authorities(username,authority) values('master','ROLE_MASTER');
 
 
