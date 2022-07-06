@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.myproject.mapper.ReserveMapper">
+	<resultMap type="org.kosta.myproject.vo.BoardVO" id="reservationResultMap">
+		<result column="reservation_date" property="reservationVO.reservationDate"/>
+		<result column="board_no" property="reservationVO.boardNo"/>
+	</resultMap>
+	<select id="findReservationListById" parameterType="String" resultMap="reservationResultMap">
+		select r.reservation_date,r.id, r.board_no, b.board_no , b.title, b.content, b.select_categori,b.board_categori,b.region,b.detail_region
+		from farmily_reservation r , farmily_board b
+		where b.board_no = r.board_no
+		and r.id = #{value}
+	</select>
+	<select id="findReservationBoardNo" parameterType="String" resultType="string">
+		select distinct board_no from farmily_reservation where id = #{value}
+	</select>
 	<insert id="availableReservation" parameterType="org.kosta.myproject.vo.ReservationVO">
 		insert into farmily_reservation(reservation_no,reservation_date,board_no) values(seq_farmily_reservation.nextval,#{reservationDate},#{boardNo})
 	</insert>
@@ -13,4 +26,10 @@
 	<update id="registerReservation" parameterType="org.kosta.myproject.vo.ReservationVO">
 		update farmily_reservation set id = #{id} where board_no = #{boardNo} and reservation_date = #{reservationDate}
 	</update>
+	<select id="findReservationBoardNoDistinct" parameterType="String" resultMap="reservationResultMap">
+		select distinct b.board_no, b.title, b.region,b.detail_region
+		from farmily_reservation r , farmily_board b
+		where r.board_no = b.board_no
+		and r.id = #{id}
+	</select>
 </mapper>
