@@ -186,7 +186,7 @@ window.onload = function(){
       <tr th:each="board:${boardFarmingList}">
         <td th:text="${board.boardNo}">글번호</td>
         <td th:text="${board.region}">지역</td>
-        <td th:text="${board.boardCategori}">카테고리</td>
+        <td th:text="${board.selectCategori}">카테고리</td>
         <td>
         	<a th:text="${board.title}" th:href="@{/boardView(boardNo=${board.boardNo})}"></a>
         </td>
