@@ -52,17 +52,17 @@
             <!-- About Section Button-->
                 <div class="text-center mt-4" sec:authorize="isAuthenticated()==false">
                     <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/guest/loginForm}" >
-                        <i class="fas fa-download me-2"></i>
+                        <i class="fas fa-child me-2"></i>
                         로그인
                     </a>
                     <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/guest/registerForm}" >
-                        <i class="fas fa-download me-2"></i>
+                        <i class="fas fa-child me-2"></i>
                        	회원가입
                     </a>
                 </div>
                 <div class="text-center mt-4" sec:authorize="isAuthenticated()==true">
                     <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/" th:href="@{/mypage}" >
-                        <i class="fas fa-download me-2"></i>
+                        <i class="fas fa-child me-2"></i>
                        	<span sec:authentication="principal.name"></span>님, 좋은 하루 보내세요!<br>
                     </a>
                 </div>
@@ -72,7 +72,7 @@
             <div class="container">
                 
                 <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">농촌활동 / 장터</h2>
                 
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -257,8 +257,8 @@ window.onload = function(){
                 </div>
                 <!-- About Section Content-->
                 <div class="row">
-                    <div class="col-lg-4 ms-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                    <div class="col-lg-4 me-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
+                    <div class="col-lg-4 ms-auto"><p class="lead"> <게시판 소개><br>부족한 일손을 돕기 위한 농촌 일일 체험, 알바 예약 기능 / 자유 거래(중고물품) , 농기구 직거래 등을 위한 쇼핑 게시판 / 우리 마을 소식 전달, 원활한 소통을 위한 게시판</p></div>
+                    <div class="col-lg-4 me-auto"><p class="lead"><프로젝트 소개><br>KOSTA(한국소프트웨어기술진흥협회) 238기 <br> 막걸리 두잔 팀의 Final project입니다! <br>FARMILY는 Farm + Family의 합성어입니다.</p></div>
                 </div>
             </div>
         </section>	
