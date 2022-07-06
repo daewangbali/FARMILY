@@ -85,9 +85,20 @@ body {
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  
+  
+  
+  
+  
+  
 }
+::-webkit-scrollbar{width: 30px;} /*스크롤바 넓이*/
+::-webkit-scrollbar-track {background-color:#f1f1f1;} /*트랙 배경 색상*/
+::-webkit-scrollbar-thumb {background-color:#ccff99;border-radius: 20px;} /*바 색상,바 둥근 모서리 정도*/
+::-webkit-scrollbar-thumb:hover {background: #ffff80;} /*마우스를 올렸을 때 색상*/
+::-webkit-scrollbar-button:start:decrement 
+::-webkit-scrollbar-button:end:increment {width:16px;height:5px;background:#f1ef79;} 
+
 
 hr {
   margin: 1rem 0;
