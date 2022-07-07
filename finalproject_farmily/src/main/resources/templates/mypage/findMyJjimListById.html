@@ -11,7 +11,6 @@
     <thead>
       <tr>
         <th>글번호</th>
-        <th>지역</th>
         <th>카테고리</th>
         <th>제목</th>
         <th>작성자</th>
@@ -22,7 +21,6 @@
 
       <tr th:each="board:${boardList}">
         <td th:text="${board.boardNo}">글번호</td>
-        <td th:text="${board.region}">지역</td>
         <td th:text="${board.boardCategori}">카테고리</td>
         <td>
         	<a th:text="${board.title}" th:href="@{/boardView(boardNo=${board.boardNo})}"></a>

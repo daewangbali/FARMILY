@@ -37,11 +37,11 @@ public class BoardController {
 		return "guest/all-board-list";
 	}
 	@RequestMapping("guest/boardListByBoardCategori")
-	public String findBoardListByBoardCategori(@AuthenticationPrincipal MemberVO membervo,String boardCategori, Model model) {
+	public String findBoardListByBoardCategori(String boardCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
-		String authority = memberService.findAuthorityById(membervo.getId());
+		
 		model.addAttribute("boardList", list);
-		model.addAttribute("authority", authority);
+		
 		return "board/board-categori-list";
 	}
 
