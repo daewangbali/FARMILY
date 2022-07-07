@@ -37,9 +37,12 @@ public class BoardController {
 		return "guest/all-board-list";
 	}
 	@RequestMapping("guest/boardListByBoardCategori")
-	public String findBoardListByBoardCategori(String boardCategori, Model model) {
+	public String findBoardListByBoardCategori(@AuthenticationPrincipal MemberVO membervo,String boardCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListByBoardCategori(boardCategori);
-		
+		if(membervo !=null) {
+			String authority = memberService.findAuthorityById(membervo.getId());
+			model.addAttribute("authority", authority);
+		}
 		model.addAttribute("boardList", list);
 		
 		return "board/board-categori-list";
@@ -48,9 +51,11 @@ public class BoardController {
 	@RequestMapping("guest/boardListBySelectCategori")
 	public String boardListBySelectCategori(@AuthenticationPrincipal MemberVO membervo,String boardCategori,String selectCategori, Model model) {
 		List<BoardVO> list = boardService.findBoardListBySelectCategori(selectCategori);
-		String authority = memberService.findAuthorityById(membervo.getId());
+		if(membervo !=null) {
+			String authority = memberService.findAuthorityById(membervo.getId());
+			model.addAttribute("authority", authority);
+		}
 		model.addAttribute("boardList", list);
-		model.addAttribute("authority", authority);
 		model.addAttribute("boardCategori", boardCategori);
 		return "board/board-categori-list";
 	}

@@ -30,27 +30,26 @@ public class GuestController {
 	public String register(MemberVO memberVO, String memberRole, Model model, MultipartFile file)throws Exception {
 		
 		// 등록시 service에서 비밀번호를 암호화 한다
+		if (file.isEmpty()) {
+			memberVO.setFilename("farmer1");
+			memberVO.setFilepath("/assets/img/farmer1.png");
+
+		} else {
+			String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\profilephoto";
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid + "_" + file.getOriginalFilename();
+			File saveFile = new File(projectPath, fileName);
+			file.transferTo(saveFile);
+			memberVO.setFilename(fileName);
+			memberVO.setFilepath("/profilephoto/" + fileName);
+		
+		}
 		if(memberRole.equals("ROLE_ADMIN")) {
 			memberService.registerAdminMember(memberVO);
 		}else {
-			if (file.isEmpty()) {
-				memberVO.setFilename("farmer1");
-				memberVO.setFilepath("/assets/img/farmer1.png");
-
-			} else {
-				String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\profilephoto";
-				UUID uuid = UUID.randomUUID();
-				String fileName = uuid + "_" + file.getOriginalFilename();
-				File saveFile = new File(projectPath, fileName);
-				file.transferTo(saveFile);
-				memberVO.setFilename(fileName);
-				memberVO.setFilepath("/profilephoto/" + fileName);
-			
-			}
-			
 			memberService.registerMember(memberVO);
-			
 		}
+		
 		
 		return "redirect:/guest/registerResultView?id=" + memberVO.getId();
 	}
