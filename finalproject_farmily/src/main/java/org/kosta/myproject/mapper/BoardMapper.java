@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.FileVO;
 import org.kosta.myproject.vo.JjimVO;
+import org.kosta.myproject.vo.Pagination;
 
 @Mapper
 public interface BoardMapper {
@@ -14,7 +15,9 @@ public interface BoardMapper {
 	void registerBoardFile(FileVO fileVO); 
 	
 	//전체 게시물 리스트
-	List<BoardVO> findAllBoardList();
+	List<BoardVO> findAllBoardList(Pagination pagination);
+	
+	int getTotalPostCount();
 	
 	//지역별 게시물 리스트
 	List<BoardVO> findBoardListByRegion(String region);

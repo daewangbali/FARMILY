@@ -5,6 +5,7 @@ import java.util.List;
 import org.kosta.myproject.mapper.BoardMapper;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
+import org.kosta.myproject.vo.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 	//전체 게시물 리스트
 	@Override
-	public List<BoardVO> findAllBoardList() {
-		return boardMapper.findAllBoardList();
+	public List<BoardVO> findAllBoardList(Pagination pagination) {
+		return boardMapper.findAllBoardList(pagination);
 	}
+	
+	
 	//지역별 게시물 리스트
 	@Override
 	public List<BoardVO> findBoardListByRegion(String region) {

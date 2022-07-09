@@ -4,15 +4,23 @@
 	<sql id="selectBoard">
  		select board_no,title,content,select_categori,board_categori,region,created_date,id,detail_region,hit from farmily_board
  	</sql>
+ 	
 	<insert id="registerBoardBoard" parameterType="org.kosta.myproject.vo.BoardVO">
 		insert into farmily_board(board_no,title,content,select_categori,board_categori,region,created_date,id,filename,filepath,detail_region)
 		values (seq_farmily_board.nextval,#{title},#{content},#{selectCategori},#{boardCategori},#{region},sysdate,#{id},#{filename},#{filepath},#{detailRegion})
 	</insert>
 	
-	
-	<select id="findAllBoardList" resultType="org.kosta.myproject.vo.BoardVO">
-		<include refid="selectBoard"/> order by board_no desc
+	<select id="getTotalPostCount" resultType="int">
+		SELECT COUNT(*) FROM farmily_board
 	</select>
+	
+	<select id="findAllBoardList" parameterType="org.kosta.myproject.vo.Pagination" resultType="org.kosta.myproject.vo.BoardVO">
+		select rnum, board_no,title,content,select_categori,board_categori,region,created_date,id,detail_region,hit
+		from(select row_number() over(order by board_no desc) as rnum, board_no,title,content,select_categori,board_categori,region,created_date,id,detail_region,hit 
+		from farmily_board)
+		where rnum between #{startRowNumber} and #{endRowNumber}	
+	</select>
+	
 	<select id="findBoardListByRegion" parameterType="String" resultType="org.kosta.myproject.vo.BoardVO">
 		<include refid="selectBoard"/> where region = #{value} order by board_no desc
 	</select>

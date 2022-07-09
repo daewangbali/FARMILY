@@ -1,3 +1,9 @@
+--pagination
+select rnum, board_no,title,content,select_categori,board_categori,region,created_date,id,detail_region,hit
+		from(select row_number() over(order by board_no desc) as rnum, board_no,title,content,select_categori,board_categori,region,created_date,id,detail_region,hit 
+		from farmily_board)
+		where rnum between 1 and 5
+
 select * from farmily_board
 select * from FARMILY_MEMBER
 --profile photo를 위한 filename, filepath

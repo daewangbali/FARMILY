@@ -40,11 +40,37 @@
 		</tbody>
 	</table>
 	<br>
-
 	
-
-	<button type="button" class="btn btn-secondary"
-		sec:authorize="isAuthenticated()==true"
-		th:onclick="|location.href='@{/registerPostForm (boardCategori=${param.boardCategori})}'|">글쓰기</button>
+	
+	    	<ul class="pagination">
+	          <th:block th:if ="${pagination.previousPageGroup}">
+	    		 <li class="page-item" >
+	    		 		<a class="page-link" th:href="@{/guest/findAllBoardList(pageNo=${pagination.startPageOfPageGroup-1})}" th:text="|이전글보기|">Previous</a>
+	    		 </li> 
+	     	 </th:block>
+	    
+	 		 <th:block th:each="pageNo:${#numbers.sequence(pagination.startPageOfPageGroup,pagination.endPageOfPageGroup)}">
+			 		<th:block th:if="${pageNo==pagination.nowPage}">
+			 			<li class="page-item active">
+			 				<a class="page-link" th:href="@{/guest/findAllBoardList(pageNo=${pageNo})}" th:text="${pageNo}"></a>
+			 			</li>
+			    	</th:block>
+			    	
+			    	<th:block th:if="${pageNo!=pagination.nowPage}">
+			    		 <li class="page-item">
+			    		 	<a class="page-link" th:href="@{/guest/findAllBoardList(pageNo=${pageNo})}" th:text="${pageNo}"></a>
+			    		 </li>
+			    	</th:block>
+	   		</th:block>
+	    
+	     	 <th:block th:if ="${pagination.nextPageGroup}">
+	    			 <li class="page-item" >
+	    			 		<a class="page-link" th:href="@{/guest/findAllBoardList(pageNo=${pagination.endPageOfPageGroup+1})}" th:text="|다음글보기|"></a>
+	    			 </li> 
+	      	</th:block>
+	    </ul>
+	    <div class="pagination-box">
+    </div>
+	
 </div>
 </html>

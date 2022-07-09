@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
+import org.kosta.myproject.vo.Pagination;
 
 public interface BoardService {
 	//게시물 작성
 	void registerBoard(BoardVO bvo);
 
 	//전체 게시물 리스트
-	List<BoardVO> findAllBoardList();
+	List<BoardVO> findAllBoardList(Pagination pagination);	
 		
 	//지역별 게시물 리스트
 	List<BoardVO> findBoardListByRegion(String region);
@@ -48,6 +49,8 @@ public interface BoardService {
 	void deleteJjim(JjimVO jvo);
 	
 	// 조회수 업데이트
-	void updateCount(String boardNo);	
+	void updateCount(String boardNo);
+
+	
 	
 }

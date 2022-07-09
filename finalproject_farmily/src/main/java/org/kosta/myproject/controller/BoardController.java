@@ -4,12 +4,14 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import org.kosta.myproject.mapper.BoardMapper;
 import org.kosta.myproject.service.BoardService;
 import org.kosta.myproject.service.MemberService;
 import org.kosta.myproject.service.ReserveService;
 import org.kosta.myproject.vo.BoardVO;
 import org.kosta.myproject.vo.JjimVO;
 import org.kosta.myproject.vo.MemberVO;
+import org.kosta.myproject.vo.Pagination;
 import org.kosta.myproject.vo.ReservationVO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -30,10 +32,26 @@ public class BoardController {
 	private final ReserveService reserveService;
 	private final MemberService memberService;
 
+	private final BoardMapper BoardMapper;
+	
+	public int getTotalPostCount() {
+		return BoardMapper.getTotalPostCount();
+		
+	}
+	
 	@RequestMapping("guest/findAllBoardList")
-	public String findAllBoardList(Model model) {
-		List<BoardVO> list = boardService.findAllBoardList();
+	public String findAllBoardList(Model model, Pagination pagination, String pageNo) {
+		
+		if(pageNo==null) {
+			pagination = new Pagination(getTotalPostCount());
+		}else {
+			pagination = new Pagination(getTotalPostCount(),Integer.parseInt(pageNo));
+		}
+		
+		List<BoardVO> list = boardService.findAllBoardList(pagination);
 		model.addAttribute("boardList", list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("total", getTotalPostCount());
 		return "guest/all-board-list";
 	}
 	@RequestMapping("guest/boardListByBoardCategori")
